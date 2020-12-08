@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 import { compose } from '../compose/compose';
-import { markets } from '../../api/markets';
+import { markets } from '../../markets/markets';
 
 const market = name => markets.filter(market => market.name === name);
 

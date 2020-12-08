@@ -50,19 +50,22 @@ export const Sidebar = ({
     }
   }, [providers, filteredProviders]);
 
-  // Not very pretty. The below will set the style of any button
-  // that has been visited to have opacity 1 and signify "visited"
+  // The below will set the style of any button that has
+  // been visited to have opacity 1 and signify "visited"
+  const styleVisitedButtons = () =>
+    visited.forEach(visit => {
+      ref.current.forEach(r => {
+        if (r.textContent === visit) {
+          r.style.backgroundColor = '#FFF';
+          r.style.color = '#004146';
+          r.style.opacity = '1';
+        }
+      });
+    });
+
   useEffect(() => {
     if (visited.length > 0 && search.length < 1) {
-      visited.forEach(visit => {
-        ref.current.forEach(r => {
-          if (r.textContent === visit) {
-            r.style.backgroundColor = '#FFF';
-            r.style.color = '#004146';
-            r.style.opacity = '1';
-          }
-        });
-      });
+      styleVisitedButtons();
     }
   }, [search]);
 
@@ -71,22 +74,15 @@ export const Sidebar = ({
     e.preventDefault();
     setVisited([...visited, e.target.textContent]);
 
+    // toggles highlighted background when changing providers
     e.target.style.background = '#F89572';
     e.target.style.color = '#FFF';
     e.target.style.opacity = '1';
 
-    const { length } = arr;
+    if (visited.length > 0) {
+      styleVisitedButtons();
+    }
 
-    if (ref.current[length - 1] && ref.current[length - 1].contains(e.target))
-      return;
-
-    // toggles orange background when changing providers
-    ref.current.forEach(r => {
-      if (r.textContent !== e.target.textContent) {
-        r.style.backgroundColor = '#FFF';
-        r.style.color = '#004146';
-      }
-    });
     onClickProvider(e);
   };
 

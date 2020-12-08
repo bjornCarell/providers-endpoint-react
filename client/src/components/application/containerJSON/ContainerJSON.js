@@ -15,10 +15,10 @@ export const ContainerJSON = ({
   setProvider,
   setFilteredProviders
 }) => {
-  const [space, setSpace] = useState(2);
+  const [space, setSpace] = useState(4);
   const [displayProviders, setDisplayProviders] = useState('');
   const [displayProvider, setDisplayProvider] = useState('');
-  const [fontSize, setFontSize] = useState('1.6');
+  const [fontSize, setFontSize] = useState('1.8');
 
   useEffect(() => {
     setDisplayProviders(formatJSON(providers, space));

@@ -1,14 +1,14 @@
 import React, { useState, useRef } from 'react';
-import { markets } from '../api/markets';
-import { useProviders } from '../hooks/useProviders';
-import { getProviderByName } from '../functions/getProviderByName/getProviderByName';
-import { Container } from '../components/library/container/Container';
-import { Sidebar } from '../components/application/sidebar/Sidebar';
-import { ContainerJSON } from '../components/application/containerJSON/ContainerJSON';
+import { markets } from '../../../markets/markets';
+import { useProviders } from '../../../hooks/useProviders';
+import { getProviderByName } from '../../../functions/getProviderByName/getProviderByName';
+import { Container } from '../../library/container/Container';
+import { Sidebar } from '../sidebar/Sidebar';
+import { ContainerJSON } from '../containerJSON/ContainerJSON';
 
-export const Providers = () => {
+export const ProvidersModel = () => {
   const [provider, setProvider] = useState([]);
-  const [market, setMarket] = useState('Sweden');
+  const [market, setMarket] = useState('Sweden');  
   const [search, setSearch] = useState('');
 
   const node = useRef(null);

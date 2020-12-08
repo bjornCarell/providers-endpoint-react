@@ -22,7 +22,7 @@ export const ControlJSON = ({
           <Label block>Space</Label>
           <Select
             data={spaces}
-            defaultValue={'2'}
+            defaultValue={'4'}
             onChange={onChangeSpace}
             boxShadow={true}
             fontWieght="bold"
@@ -32,7 +32,7 @@ export const ControlJSON = ({
           <Label block>Size</Label>
           <Select
             data={fontSizes}
-            defaultValue={'16'}
+            defaultValue={'18'}
             onChange={onChangeFontSize}
             boxShadow={true}
             fontWieght="bold"
