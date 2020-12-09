@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 
 export const SidebarStyled = styled.div`
   background: ${({ theme }) => theme.color.primary};
-  -webkit-box-shadow: 8px 1px 32px -2px rgba(0, 0, 0, 0.46);
-  box-shadow: 8px 1px 32px -2px rgba(0, 0, 0, 0.46);
+  /* -webkit-box-shadow: 2px 1px 12px -2px rgba(0, 0, 0, 0.46);
+  box-shadow: 2px 1px 12px -2px rgba(0, 0, 0, 0.46); */
   color: ${({ theme }) => theme.color.white};
   height: 100%;
   overflow: auto;
   position: fixed;
-  width: 35rem;
+  width: 40rem;
   z-index: ${({ theme }) => theme.zIndex.sidebar};
 `;
 
@@ -21,7 +21,7 @@ export const LeftMenuInner = styled.div`
   padding-left: ${({ theme }) => theme.spacing.medium};
   padding-top: ${({ theme }) => theme.spacing.medium};
   position: fixed;
-  width: 35rem;
+  width: 40rem;
 `;
 
 export const LeftMenuInnest = styled.div`

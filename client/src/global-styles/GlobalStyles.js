@@ -13,7 +13,7 @@ export const GlobalStyles = createGlobalStyle`
     scroll-behavior: smooth;
   }
   body {
-    background: ${({ theme }) => theme.light};
+    background: ${({ theme }) => theme.color.white};
     box-sizing: border-box;
     color: ${({ theme }) => theme.black};
     font-family: "Lota Grotesque", Avenir, Arial, sans-serif;

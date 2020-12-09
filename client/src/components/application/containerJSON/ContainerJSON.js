@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { formatJSON } from '../../../functions/formatJSON/formatJSON';
 import { searchModel } from '../../../functions/searchModel/searchModel';
 import { FlexContainer, FlexItem } from '../../library/flex/FlexStyled';
-import { Pre } from '../../library/pre/Pre';
+import { Pre } from '../pre/Pre';
 import { ControlJSON } from '../controlJSON/ControlJSON';
 
 export const ContainerJSON = ({

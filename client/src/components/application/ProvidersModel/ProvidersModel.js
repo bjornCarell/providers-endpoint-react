@@ -8,7 +8,7 @@ import { ContainerJSON } from '../containerJSON/ContainerJSON';
 
 export const ProvidersModel = () => {
   const [provider, setProvider] = useState([]);
-  const [market, setMarket] = useState('Sweden');  
+  const [market, setMarket] = useState('Sweden');
   const [search, setSearch] = useState('');
 
   const node = useRef(null);

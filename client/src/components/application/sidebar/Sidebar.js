@@ -109,7 +109,7 @@ export const Sidebar = ({
           <Form
             boxShadow
             noMargin
-            width="35rem"
+            width="40rem"
             style={{
               background: 'rgba(1, 63, 69, 0.97)',
               boxShadow: '-3px 9px 17px -2px rgba(0,0,0,0.3)',
