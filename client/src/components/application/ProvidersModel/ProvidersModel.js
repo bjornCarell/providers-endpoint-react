@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { markets } from '../../../markets/markets';
 import { useProviders } from '../../../hooks/useProviders';
 import { getProviderByName } from '../../../functions/getProviderByName/getProviderByName';
@@ -21,6 +21,10 @@ export const ProvidersModel = () => {
 
     node.current.value = '';
   };
+
+  useEffect(() => {
+    showAllProviders();
+  }, [market]);
 
   const onClickProvider = e => {
     e.preventDefault();

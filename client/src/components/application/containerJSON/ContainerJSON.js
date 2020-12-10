@@ -17,27 +17,20 @@ export const ContainerJSON = ({
   setFilteredProviders
 }) => {
   const [space, setSpace] = useState(4);
-  const [providersJSON, setProvidersJSON] = useState('');
-  const [providerJSON, setProviderJSON] = useState('');
+  const [displayProviders, setDisplayProviders] = useState('');
+  const [displayProvider, setDisplayProvider] = useState('');
   const [fontSize, setFontSize] = useState('1.8');
-  const [displayProviders, setDisplayProviders] = useState(true);
-  const [displayProvider, setDisplayProvider] = useState(false);
 
   useEffect(() => {
-    setProvidersJSON(formatJSON(providers, space));
-    setDisplayProvider(false);
+    setDisplayProviders(formatJSON(providers, space));
   }, [market]);
 
   useEffect(() => {
-    setProvidersJSON(formatJSON(providers, space));
-    setDisplayProviders(true);
-    setDisplayProvider(false);
+    setDisplayProviders(formatJSON(providers, space));
   }, [providers, space]);
 
   useEffect(() => {
-    setProviderJSON(formatJSON(provider, space));
-    setDisplayProviders(false);
-    setDisplayProvider(true);
+    setDisplayProvider(formatJSON(provider, space));
   }, [provider, space]);
 
   useEffect(() => {
@@ -47,10 +40,10 @@ export const ContainerJSON = ({
       const result = filter(search);
 
       setFilteredProviders(result);
-      setProvidersJSON(formatJSON(result, space));
+      setDisplayProviders(formatJSON(result, space));
     } else {
       setFilteredProviders(providers);
-      setProvidersJSON(formatJSON(providers, space));
+      setDisplayProviders(formatJSON(providers, space));
     }
   }, [search, providers, space]);
 
@@ -72,15 +65,15 @@ export const ContainerJSON = ({
       </FlexItem>
       <FlexItem>
         <Pre
-          display={displayProviders ? 'block' : 'none'}
+          display={provider.length > 0 ? 'none' : 'block'}
           fontSize={`${fontSize}`}
-          JSON={providersJSON}
+          JSON={displayProviders}
           model={providers}
         />
         <Pre
-          display={displayProvider ? 'block' : 'none'}
+          display={provider.length > 0 ? 'block' : 'none'}
           fontSize={`${fontSize}`}
-          JSON={providerJSON}
+          JSON={displayProvider}
           model={provider}
         />
       </FlexItem>
