@@ -7,6 +7,7 @@ import { Pre } from '../pre/Pre';
 import { ControlJSON } from '../controlJSON/ControlJSON';
 
 export const ContainerJSON = ({
+  market,
   node,
   onSearch,
   provider,
@@ -16,16 +17,27 @@ export const ContainerJSON = ({
   setFilteredProviders
 }) => {
   const [space, setSpace] = useState(4);
-  const [displayProviders, setDisplayProviders] = useState('');
-  const [displayProvider, setDisplayProvider] = useState('');
+  const [providersJSON, setProvidersJSON] = useState('');
+  const [providerJSON, setProviderJSON] = useState('');
   const [fontSize, setFontSize] = useState('1.8');
+  const [displayProviders, setDisplayProviders] = useState(true);
+  const [displayProvider, setDisplayProvider] = useState(false);
 
   useEffect(() => {
-    setDisplayProviders(formatJSON(providers, space));
+    setProvidersJSON(formatJSON(providers, space));
+    setDisplayProvider(false);
+  }, [market]);
+
+  useEffect(() => {
+    setProvidersJSON(formatJSON(providers, space));
+    setDisplayProviders(true);
+    setDisplayProvider(false);
   }, [providers, space]);
 
   useEffect(() => {
-    setDisplayProvider(formatJSON(provider, space));
+    setProviderJSON(formatJSON(provider, space));
+    setDisplayProviders(false);
+    setDisplayProvider(true);
   }, [provider, space]);
 
   useEffect(() => {
@@ -35,10 +47,10 @@ export const ContainerJSON = ({
       const result = filter(search);
 
       setFilteredProviders(result);
-      setDisplayProviders(formatJSON(result, space));
+      setProvidersJSON(formatJSON(result, space));
     } else {
       setFilteredProviders(providers);
-      setDisplayProviders(formatJSON(providers, space));
+      setProvidersJSON(formatJSON(providers, space));
     }
   }, [search, providers, space]);
 
@@ -60,15 +72,15 @@ export const ContainerJSON = ({
       </FlexItem>
       <FlexItem>
         <Pre
-          display={provider.length > 0 ? 'none' : 'block'}
+          display={displayProviders ? 'block' : 'none'}
           fontSize={`${fontSize}`}
-          JSON={displayProviders}
+          JSON={providersJSON}
           model={providers}
         />
         <Pre
-          display={provider.length > 0 ? 'block' : 'none'}
+          display={displayProvider ? 'block' : 'none'}
           fontSize={`${fontSize}`}
-          JSON={displayProvider}
+          JSON={providerJSON}
           model={provider}
         />
       </FlexItem>
@@ -77,8 +89,7 @@ export const ContainerJSON = ({
 };
 
 ContainerJSON.propTypes = {
-  displayProvider: PropTypes.string.isRequired,
-  displayProviders: PropTypes.string.isRequired,
+  market: PropTypes.string.isRequired,
   node: PropTypes.object.isRequired,
   onChangeSpace: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,

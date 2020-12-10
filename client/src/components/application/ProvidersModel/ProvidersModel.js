@@ -10,23 +10,22 @@ export const ProvidersModel = () => {
   const [provider, setProvider] = useState([]);
   const [market, setMarket] = useState('Sweden');
   const [search, setSearch] = useState('');
-
   const node = useRef(null);
   const providers = useProviders(market);
   const [filteredProviders, setFilteredProviders] = useState(providers);
+
+  const showAllProviders = () => {
+    setFilteredProviders(providers);
+    setProvider([]);
+    setSearch('');
+
+    node.current.value = '';
+  };
 
   const onClickProvider = e => {
     e.preventDefault();
     const filterProviderByName = getProviderByName(providers);
     setProvider(filterProviderByName(e.target.innerText));
-  };
-
-  const showAllProviders = () => {
-    setProvider([]);
-    setSearch('');
-    setFilteredProviders(providers);
-
-    node.current.value = '';
   };
 
   const onSearch = e => {
@@ -47,6 +46,7 @@ export const ProvidersModel = () => {
         providers={providers}
         search={search}
         showAllProviders={showAllProviders}
+        market={market}
       />
       <Container noPaddingLeft>
         <ContainerJSON
@@ -58,6 +58,7 @@ export const ProvidersModel = () => {
           search={search}
           setProvider={setProvider}
           setFilteredProviders={setFilteredProviders}
+          market={market}
         />
       </Container>
     </Container>

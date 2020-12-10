@@ -9,13 +9,10 @@ import {
   ButtonItem
 } from './SidebarStyled';
 import { FlexContainer, FlexItem } from '../../library/flex/FlexStyled';
-import { Button } from '../../library/button/Button';
-import { Form } from '../../library/form/Form';
-import { Label } from '../../library/label/Label';
-import { Select } from '../../library/select/Select';
 import { ProvidersStatus } from '../providerStatus/ProviderStatus';
 import { Ul } from '../../library/ul/UlStyled';
 import { Li } from '../../library/li/LiStyled';
+import { SidebarForm } from '../sidebarForm/SidebarForm';
 
 export const Sidebar = ({
   filteredProviders,
@@ -49,6 +46,9 @@ export const Sidebar = ({
       });
     }
   }, [providers, filteredProviders]);
+
+  const notAllProvidersShown =
+    search && filteredProviders.length !== providers.length;
 
   // The below will set the style of any button that has
   // been visited to have opacity 1 and signify "visited"
@@ -98,53 +98,16 @@ export const Sidebar = ({
     scrollTop.current.scrollTop = 0;
   };
 
-  const notAllProvidersShown =
-    provider.length > 0 ||
-    (search && filteredProviders.length !== providers.length);
-
   return (
     <SidebarStyled>
       <FlexContainer>
         <FlexItem noPadding>
-          <Form
-            boxShadow
-            noMargin
-            width="40rem"
-            style={{
-              background: 'rgba(1, 63, 69, 0.97)',
-              boxShadow: '-3px 9px 17px -2px rgba(0,0,0,0.3)',
-              position: 'fixed',
-              zIndex: 5
-            }}
-          >
-            <FlexContainer>
-              <FlexItem noPaddingTop>
-                <Label block>Market </Label>
-                <Select
-                  data={markets}
-                  dataType="markets"
-                  fontWeight="bold"
-                  inverse
-                  defaultValue={'Sweden'}
-                  onChange={onChangeMarket}
-                />
-              </FlexItem>
-              <FlexItem noPaddingTop>
-                <Label block>Providers</Label>
-                <Button
-                  secondary
-                  width="11rem"
-                  onClick={e => reset(e)}
-                  disabled={!notAllProvidersShown}
-                  style={{
-                    opacity: notAllProvidersShown ? '1' : '0.8'
-                  }}
-                >
-                  {notAllProvidersShown ? 'Show all' : 'All shown'}
-                </Button>
-              </FlexItem>
-            </FlexContainer>
-          </Form>
+          <SidebarForm
+            markets={markets}
+            onChangeMarket={e => onChangeMarket(e)}
+            reset={e => reset(e)}
+            notAllProvidersShown={notAllProvidersShown}
+          />
         </FlexItem>
       </FlexContainer>
 
