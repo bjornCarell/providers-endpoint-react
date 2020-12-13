@@ -14,7 +14,6 @@ import { ProvidersStatus } from '../providerStatus/ProviderStatus';
 import { Ul } from '../../library/ul/UlStyled';
 import { Li } from '../../library/li/LiStyled';
 import { SidebarForm } from '../sidebarForm/SidebarForm';
-import { Loader } from '../../library/loader/Loader';
 
 export const Sidebar = ({
   filteredProviders,
@@ -180,7 +179,7 @@ export const Sidebar = ({
       <LeftMenuInner>
         <LeftMenuInnest ref={scrollTop}>
           {loading ? (
-            <Loader />
+            ''
           ) : (
             <Ul column>
               {!allProvidersShown // Make this into a component SidenbarList
