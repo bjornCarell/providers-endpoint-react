@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { PreStyled } from './PreStyled';
 
-export const Pre = ({ model, JSON, fontSize, display }) => (
+export const Pre = ({ JSON, fontSize, display }) => (
   <PreStyled display={display} fontSize={`${fontSize}rem`}>
-    {model.length > 0 && JSON}
+    {JSON && JSON}
   </PreStyled>
 );
 
 Pre.propTypes = {
-  model: PropTypes.array.isRequired,
+  loading: PropTypes.bool,
   JSON: PropTypes.string.isRequired,
   fontSize: PropTypes.string.isRequired,
   display: PropTypes.string.isRequired

@@ -7,10 +7,11 @@ import { Select } from '../../library/select/Select';
 import { SidebarFormStyled } from './SidebarFormStyled';
 
 export const SidebarForm = ({
+  makeResetButtonActive,
   markets,
   onChangeMarket,
-  reset,
-  notAllProvidersShown
+  reset
+  // notAllProvidersShown
 }) => (
   <SidebarFormStyled boxShadow noMargin width="40rem">
     <FlexContainer>
@@ -31,12 +32,12 @@ export const SidebarForm = ({
           secondary
           width="11rem"
           onClick={reset}
-          disabled={!notAllProvidersShown}
+          disabled={!makeResetButtonActive}
           style={{
-            opacity: notAllProvidersShown ? '1' : '0.8'
+            opacity: makeResetButtonActive ? '1' : '0.8'
           }}
         >
-          {notAllProvidersShown ? 'Show all' : 'All shown'}
+          {makeResetButtonActive ? 'Reset' : 'All'}
         </Button>
       </FlexItem>
     </FlexContainer>
@@ -44,8 +45,9 @@ export const SidebarForm = ({
 );
 
 SidebarForm.propTypes = {
+  makeResetButtonActive: PropTypes.bool.isRequired,
   markets: PropTypes.array.isRequired,
   onChangeMarket: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
-  notAllProvidersShown: PropTypes.bool.isRequired
+  notAllProvidersShown: PropTypes.bool
 };

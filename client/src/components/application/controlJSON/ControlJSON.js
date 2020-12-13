@@ -6,12 +6,7 @@ import { Label } from '../../library/label/Label';
 import { Select } from '../../library/select/Select';
 import { Input } from '../../library/input/Input';
 
-export const ControlJSON = ({
-  onChangeSpace,
-  onChangeFontSize,
-  onSearch,
-  node
-}) => {
+export const ControlJSON = ({ onChangeSpace, onChangeFontSize, onSearch }) => {
   const spaces = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const fontSizes = [10, 12, 14, 16, 18, 20, 22, 24];
 
@@ -41,14 +36,13 @@ export const ControlJSON = ({
       </FlexContainer>
       <FlexItem noPaddingTop>
         <Label block>Search the model</Label>
-        <Input boxShadow onChange={onSearch} ref={node} type="search" />
+        <Input boxShadow onChange={onSearch} type="search" />
       </FlexItem>
     </Form>
   );
 };
 
 ControlJSON.propTypes = {
-  node: PropTypes.object.isRequired,
   onChangeFontSize: PropTypes.func.isRequired,
   onChangeSpace: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired

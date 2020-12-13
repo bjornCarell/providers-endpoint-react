@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 // import { useScrollTop } from '../../../hooks/useScrollTop';
 import { providerStatus } from '../../../functions/providerStatus/providerStatus';
+import { caseInsensitive } from '../../../functions/caseInsensitive/caseInsensitive';
 import {
   SidebarStyled,
   LeftMenuInner,
@@ -13,13 +14,15 @@ import { ProvidersStatus } from '../providerStatus/ProviderStatus';
 import { Ul } from '../../library/ul/UlStyled';
 import { Li } from '../../library/li/LiStyled';
 import { SidebarForm } from '../sidebarForm/SidebarForm';
+import { Loader } from '../../library/loader/Loader';
 
 export const Sidebar = ({
   filteredProviders,
+  loading,
+  market,
   markets,
   onChangeMarket,
   onClickProvider,
-  provider,
   providers,
   search,
   showAllProviders
@@ -27,67 +30,128 @@ export const Sidebar = ({
   const ref = useRef([]);
   const scrollTop = useRef('');
   const [arr, setArr] = useState([]);
-  const [visited, setVisited] = useState([]);
+  const [allProvidersShown, setAllProvidersShown] = useState(true);
+  const [makeResetButtonActive, setMakeResetButtonActive] = useState(false);
+  const [visitedProviders, setVisitedProviders] = useState({ markets: {} });
 
-  useEffect(() => {
-    if (
-      (providers.length !== filteredProviders.length && arr.length === 0) ||
-      provider.length < 1
-    ) {
-      setArr(filteredProviders);
-      ref.current = new Array(filteredProviders.length);
-    } else {
-      setArr(providers);
-      ref.current = new Array(providers.length);
-
-      ref.current.forEach(r => {
-        r.style.background = '#FFF';
-        r.style.color = '#004146';
-      });
-    }
-  }, [providers, filteredProviders]);
-
-  const notAllProvidersShown =
-    search && filteredProviders.length !== providers.length;
+  useState(() => {
+    setVisitedProviders({
+      markets: markets.reduce(
+        (acc, mark) => ({
+          ...acc,
+          [caseInsensitive(mark.name)]: []
+        }),
+        {}
+      )
+    });
+  }, []);
 
   // The below will set the style of any button that has
   // been visited to have opacity 1 and signify "visited"
-  const styleVisitedButtons = () =>
-    visited.forEach(visit => {
-      ref.current.forEach(r => {
-        if (r.textContent === visit) {
-          r.style.backgroundColor = '#FFF';
-          r.style.color = '#004146';
-          r.style.opacity = '1';
+  const styleVisitedButtons = (currentRef, currentMarket, e = null) => {
+    if (search.length < 1)
+      visitedProviders.markets[caseInsensitive(currentMarket)].forEach(
+        visit => {
+          currentRef.forEach(r => {
+            if (e) {
+              if (
+                r.textContent === visit &&
+                r.textContent !== e.target.textContent
+              ) {
+                r.style.backgroundColor = '#FFF';
+                r.style.color = '#004146';
+                r.style.opacity = '1';
+              } else if (
+                r.textContent === visit &&
+                r.textContent === e.target.textContent
+              ) {
+                e.target.style.background = '#F89572';
+                e.target.style.color = '#FFF';
+              }
+            } else if (!e) {
+              if (r.textContent === visit) {
+                r.style.backgroundColor = '#FFF';
+                r.style.color = '#004146';
+                r.style.opacity = '1';
+              }
+            }
+          });
         }
-      });
+      );
+  };
+
+  // Resetting visited providers on change market,
+  // until I have figured out how to highligt visited on
+  // market change.
+  useEffect(() => {
+    setVisitedProviders({
+      markets: markets.reduce(
+        (acc, mark) => ({
+          ...acc,
+          [caseInsensitive(mark.name)]: []
+        }),
+        {}
+      )
     });
+  }, [market]);
 
   useEffect(() => {
-    if (visited.length > 0 && search.length < 1) {
-      styleVisitedButtons();
+    if (providers.length !== filteredProviders.length && arr.length === 0) {
+      setArr(filteredProviders);
+      ref.current = new Array(filteredProviders.length);
+      styleVisitedButtons(ref.current, market);
+    } else {
+      setArr(providers);
+      ref.current = new Array(providers.length);
+      styleVisitedButtons(ref.current, market);
     }
+  }, [providers, filteredProviders]);
+
+  useEffect(() => {
+    setAllProvidersShown(false);
+    setMakeResetButtonActive(false);
+    styleVisitedButtons(ref.current, market);
   }, [search]);
 
   //
   const toggleProvider = e => {
     e.preventDefault();
-    setVisited([...visited, e.target.textContent]);
 
-    // toggles highlighted background when changing providers
-    e.target.style.background = '#F89572';
-    e.target.style.color = '#FFF';
-    e.target.style.opacity = '1';
-
-    if (visited.length > 0) {
-      styleVisitedButtons();
+    if (
+      !visitedProviders.markets[caseInsensitive(market)].includes(
+        e.target.textContent
+      )
+    ) {
+      setVisitedProviders({
+        markets: {
+          ...visitedProviders.markets,
+          [caseInsensitive(market)]: visitedProviders.markets[
+            caseInsensitive(market)
+          ].concat([e.target.textContent])
+        }
+      });
     }
 
+    if (search.length < 1) {
+      setMakeResetButtonActive(true);
+      e.target.style.background = '#F89572';
+      e.target.style.color = '#FFF';
+      e.target.style.opacity = '1';
+    } else {
+      e.target.style.backgroundColor = '#FFF';
+      e.target.style.color = '#004146';
+      e.target.style.opacity = '1';
+    }
+
+    styleVisitedButtons(ref.current, market, e);
     onClickProvider(e);
   };
 
   const reset = e => {
     e.preventDefault();
+    setAllProvidersShown(true);
+    setMakeResetButtonActive(false);
+    styleVisitedButtons(ref.current, market);
 
     ref.current.forEach(r => {
       r.style.background = '#FFF';
@@ -95,7 +159,8 @@ export const Sidebar = ({
     });
 
     showAllProviders();
-    scrollTop.current.scrollTop = 0;
+
+    if (scrollTop.current.scrollTop !== 0) scrollTop.current.scrollTop = 0;
   };
 
   return (
@@ -103,51 +168,56 @@ export const Sidebar = ({
       <FlexContainer>
         <FlexItem noPadding>
           <SidebarForm
+            makeResetButtonActive={makeResetButtonActive}
             markets={markets}
             onChangeMarket={e => onChangeMarket(e)}
             reset={e => reset(e)}
-            notAllProvidersShown={notAllProvidersShown}
+            allProvidersShown={allProvidersShown}
           />
         </FlexItem>
       </FlexContainer>
 
       <LeftMenuInner>
         <LeftMenuInnest ref={scrollTop}>
-          <Ul column>
-            {notAllProvidersShown // Make this into a component SidenbarList
-              ? filteredProviders.map(({ name, status }, i) => (
-                  <Li key={name} noPaddingBottom noPaddingTop>
-                    <FlexContainer alignCenter>
-                      <ButtonItem
-                        key={name}
-                        onClick={e => toggleProvider(e)}
-                        ref={el => {
-                          ref.current[i] = el;
-                        }}
-                      >
-                        {name}
-                      </ButtonItem>
-                      <ProvidersStatus status={providerStatus(status)} />
-                    </FlexContainer>
-                  </Li>
-                ))
-              : providers.map(({ name, status }, i) => (
-                  <Li key={name} noPaddingBottom noPaddingTop>
-                    <FlexContainer alignCenter>
-                      <ButtonItem
-                        key={name}
-                        onClick={e => toggleProvider(e)}
-                        ref={el => {
-                          ref.current[i] = el;
-                        }}
-                      >
-                        {name}
-                      </ButtonItem>
-                      <ProvidersStatus status={providerStatus(status)} />
-                    </FlexContainer>
-                  </Li>
-                ))}
-          </Ul>
+          {loading ? (
+            <Loader />
+          ) : (
+            <Ul column>
+              {!allProvidersShown // Make this into a component SidenbarList
+                ? filteredProviders.map(({ name, status }, i) => (
+                    <Li key={name} noPaddingBottom noPaddingTop>
+                      <FlexContainer alignCenter>
+                        <ButtonItem
+                          key={name}
+                          onClick={e => toggleProvider(e)}
+                          ref={el => {
+                            ref.current[i] = el;
+                          }}
+                        >
+                          {name}
+                        </ButtonItem>
+                        <ProvidersStatus status={providerStatus(status)} />
+                      </FlexContainer>
+                    </Li>
+                  ))
+                : providers.map(({ name, status }, i) => (
+                    <Li key={name} noPaddingBottom noPaddingTop>
+                      <FlexContainer alignCenter>
+                        <ButtonItem
+                          key={name}
+                          onClick={e => toggleProvider(e)}
+                          ref={e => {
+                            ref.current[i] = e;
+                          }}
+                        >
+                          {name}
+                        </ButtonItem>
+                        <ProvidersStatus status={providerStatus(status)} />
+                      </FlexContainer>
+                    </Li>
+                  ))}
+            </Ul>
+          )}
         </LeftMenuInnest>
       </LeftMenuInner>
     </SidebarStyled>
@@ -156,12 +226,12 @@ export const Sidebar = ({
 
 Sidebar.propTypes = {
   filteredProviders: PropTypes.array.isRequired,
+  loading: PropTypes.bool,
+  market: PropTypes.string.isRequired,
   markets: PropTypes.array.isRequired,
-  node: PropTypes.object.isRequired,
   onChangeMarket: PropTypes.func.isRequired,
   onClickProvider: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
-  provider: PropTypes.array.isRequired,
   providers: PropTypes.array.isRequired,
   search: PropTypes.string.isRequired,
   showAllProviders: PropTypes.func.isRequired

@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+/* eslint-disable no-console */
+import React, { useState } from 'react';
 import { markets } from '../../../markets/markets';
 import { useProviders } from '../../../hooks/useProviders';
 import { getProviderByName } from '../../../functions/getProviderByName/getProviderByName';
@@ -10,25 +11,17 @@ export const ProvidersModel = () => {
   const [provider, setProvider] = useState([]);
   const [market, setMarket] = useState('Sweden');
   const [search, setSearch] = useState('');
-  const node = useRef(null);
-  const providers = useProviders(market);
-  const [filteredProviders, setFilteredProviders] = useState(providers);
+  const { providersData, loading } = useProviders(market);
+  const [filteredProviders, setFilteredProviders] = useState(providersData);
 
   const showAllProviders = () => {
-    setFilteredProviders(providers);
+    setFilteredProviders(providersData);
     setProvider([]);
-    setSearch('');
-
-    node.current.value = '';
   };
-
-  useEffect(() => {
-    showAllProviders();
-  }, [market]);
 
   const onClickProvider = e => {
     e.preventDefault();
-    const filterProviderByName = getProviderByName(providers);
+    const filterProviderByName = getProviderByName(providersData);
     setProvider(filterProviderByName(e.target.innerText));
   };
 
@@ -41,28 +34,29 @@ export const ProvidersModel = () => {
     <Container full fullVertical>
       <Sidebar
         filteredProviders={filteredProviders}
+        loading={loading}
+        market={market}
         markets={markets}
         onChangeMarket={e => setMarket(e.target.value)}
         onClickProvider={onClickProvider}
         onSearch={e => onSearch(e)}
-        node={node}
         provider={provider}
-        providers={providers}
+        providers={providersData}
         search={search}
+        setProvider={setProvider}
         showAllProviders={showAllProviders}
-        market={market}
       />
       <Container noPaddingLeft>
         <ContainerJSON
           filteredProviders={filteredProviders}
-          node={node}
+          loading={loading}
+          market={market}
           onSearch={e => onSearch(e)}
           provider={provider}
-          providers={providers}
+          providers={providersData}
           search={search}
           setProvider={setProvider}
           setFilteredProviders={setFilteredProviders}
-          market={market}
         />
       </Container>
     </Container>
