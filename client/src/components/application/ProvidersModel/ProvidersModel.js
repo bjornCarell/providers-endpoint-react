@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { markets } from '../../../markets/markets';
 import { useProviders } from '../../../hooks/useProviders';
 import { getProviderByName } from '../../../functions/getProviderByName/getProviderByName';
@@ -11,6 +10,7 @@ export const ProvidersModel = () => {
   const [provider, setProvider] = useState([]);
   const [market, setMarket] = useState('Sweden');
   const [search, setSearch] = useState('');
+  const searchNode = useRef(null);
   const { providersData, loading } = useProviders(market);
   const [filteredProviders, setFilteredProviders] = useState(providersData);
 
@@ -21,6 +21,9 @@ export const ProvidersModel = () => {
 
   const onClickProvider = e => {
     e.preventDefault();
+
+    // When fetching data here, the flicker ocurres
+    // Make into useSingleProvider hook with loading state
     const filterProviderByName = getProviderByName(providersData);
     setProvider(filterProviderByName(e.target.innerText));
   };
@@ -43,6 +46,7 @@ export const ProvidersModel = () => {
         provider={provider}
         providers={providersData}
         search={search}
+        searchNode={searchNode}
         setProvider={setProvider}
         showAllProviders={showAllProviders}
       />
@@ -55,6 +59,7 @@ export const ProvidersModel = () => {
           provider={provider}
           providers={providersData}
           search={search}
+          searchNode={searchNode}
           setProvider={setProvider}
           setFilteredProviders={setFilteredProviders}
         />

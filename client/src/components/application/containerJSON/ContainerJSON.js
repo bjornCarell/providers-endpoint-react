@@ -14,6 +14,7 @@ export const ContainerJSON = ({
   provider,
   providers,
   search,
+  searchNode,
   setFilteredProviders
 }) => {
   const [space, setSpace] = useState(4);
@@ -74,6 +75,7 @@ export const ContainerJSON = ({
           onChangeSpace={e => setSpace(e.target.value)}
           onChangeFontSize={e => onChangeFontSize(e)}
           onSearch={e => onSearch(e)}
+          searchNode={searchNode}
         />
       </FlexItem>
       <FlexItem>
@@ -81,7 +83,6 @@ export const ContainerJSON = ({
           <Loader />
         ) : (
           <>
-            {' '}
             <Pre
               display={displayProviders ? 'block' : 'none'}
               fontSize={`${fontSize}`}
@@ -107,6 +108,7 @@ ContainerJSON.propTypes = {
   provider: PropTypes.array.isRequired,
   providers: PropTypes.array.isRequired,
   search: PropTypes.string.isRequired,
+  searchNode: PropTypes.object.isRequired,
   setProvider: PropTypes.func.isRequired,
   setFilteredProviders: PropTypes.func.isRequired
 };

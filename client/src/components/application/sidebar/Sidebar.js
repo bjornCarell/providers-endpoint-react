@@ -24,6 +24,7 @@ export const Sidebar = ({
   onClickProvider,
   providers,
   search,
+  // searchNode,
   showAllProviders
 }) => {
   const ref = useRef([]);
@@ -98,24 +99,24 @@ export const Sidebar = ({
     if (providers.length !== filteredProviders.length && arr.length === 0) {
       setArr(filteredProviders);
       ref.current = new Array(filteredProviders.length);
-      styleVisitedButtons(ref.current, market);
+      // styleVisitedButtons(ref.current, market);
     } else {
       setArr(providers);
       ref.current = new Array(providers.length);
-      styleVisitedButtons(ref.current, market);
+      // styleVisitedButtons(ref.current, market);
     }
   }, [providers, filteredProviders]);
 
   useEffect(() => {
     setAllProvidersShown(false);
-    setMakeResetButtonActive(false);
+    // setMakeResetButtonActive(false);
     styleVisitedButtons(ref.current, market);
   }, [search]);
 
   //
   const toggleProvider = e => {
     e.preventDefault();
-
+    onClickProvider(e);
     if (
       !visitedProviders.markets[caseInsensitive(market)].includes(
         e.target.textContent
@@ -131,33 +132,49 @@ export const Sidebar = ({
       });
     }
 
-    if (search.length < 1) {
-      setMakeResetButtonActive(true);
-      e.target.style.background = '#F89572';
-      e.target.style.color = '#FFF';
-      e.target.style.opacity = '1';
-    } else {
-      e.target.style.backgroundColor = '#FFF';
-      e.target.style.color = '#004146';
-      e.target.style.opacity = '1';
-    }
+    setMakeResetButtonActive(true);
+    e.target.style.background = '#F89572';
+    e.target.style.color = '#FFF';
+    e.target.style.opacity = '1';
+
+    // if (search.length < 1) {
+    //   setMakeResetButtonActive(true);
+    //   e.target.style.background = '#F89572';
+    //   e.target.style.color = '#FFF';
+    //   e.target.style.opacity = '1';
+    // } else {
+    //   e.target.style.backgroundColor = '#FFF';
+    //   e.target.style.color = '#004146';
+    //   e.target.style.opacity = '1';
+    // }
 
     styleVisitedButtons(ref.current, market, e);
-    onClickProvider(e);
   };
 
   const reset = e => {
     e.preventDefault();
-    setAllProvidersShown(true);
-    setMakeResetButtonActive(false);
-    styleVisitedButtons(ref.current, market);
+
+    // if (search.length > 1) {
+    //   searchNode.current.value = '';
+    //   showAllProviders();
+    // } else {
+    //   showAllProviders();
+    //   setAllProvidersShown(true);
+    //   setMakeResetButtonActive(false);
+    //   styleVisitedButtons(ref.current, market);
+    // }
+
+    if (search.length < 1) {
+      showAllProviders();
+      setAllProvidersShown(true);
+      setMakeResetButtonActive(false);
+      styleVisitedButtons(ref.current, market);
+    }
 
     ref.current.forEach(r => {
       r.style.background = '#FFF';
       r.style.color = '#004146';
     });
-
-    showAllProviders();
 
     if (scrollTop.current.scrollTop !== 0) scrollTop.current.scrollTop = 0;
   };
@@ -233,5 +250,6 @@ Sidebar.propTypes = {
   onSearch: PropTypes.func.isRequired,
   providers: PropTypes.array.isRequired,
   search: PropTypes.string.isRequired,
+  // searchNode: PropTypes.object.isRequired,
   showAllProviders: PropTypes.func.isRequired
 };

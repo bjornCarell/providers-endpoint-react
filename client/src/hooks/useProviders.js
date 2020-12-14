@@ -33,34 +33,3 @@ export const useProviders = market => {
 
   return { providersData, error, loading };
 };
-
-export const useProvidersData = market => {
-  const [providersData2, setProvidersData2] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({});
-
-  useEffect(() => {
-    const code = getMarketCode(market);
-
-    let ignore = false;
-
-    const getData = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(`/providers/${code}`);
-        const result = await response.json();
-        const { providers } = result;
-
-        if (!ignore) getData().then(setProvidersData2(providers));
-      } catch (err) {
-        setError(err);
-      }
-    };
-    getData();
-    return () => {
-      ignore = true;
-    };
-  }, [market]);
-
-  return { providersData2, loading, error };
-};
