@@ -34,6 +34,7 @@ export const Sidebar = ({
   const [makeResetButtonActive, setMakeResetButtonActive] = useState(false);
   const [visitedProviders, setVisitedProviders] = useState({ markets: {} });
 
+  //
   useState(() => {
     setVisitedProviders({
       markets: markets.reduce(
@@ -46,41 +47,7 @@ export const Sidebar = ({
     });
   }, []);
 
-  // The below will set the style of any button that has
-  // been visited to have opacity 1 and signify "visited"
-  const styleVisitedButtons = (currentRef, currentMarket, e = null) => {
-    if (search.length < 1)
-      visitedProviders.markets[caseInsensitive(currentMarket)].forEach(
-        visit => {
-          currentRef.forEach(r => {
-            if (e) {
-              if (
-                r.textContent === visit &&
-                r.textContent !== e.target.textContent
-              ) {
-                r.style.backgroundColor = '#FFF';
-                r.style.color = '#004146';
-                r.style.opacity = '1';
-              } else if (
-                r.textContent === visit &&
-                r.textContent === e.target.textContent
-              ) {
-                e.target.style.background = '#F89572';
-                e.target.style.color = '#FFF';
-              }
-            } else if (!e) {
-              if (r.textContent === visit) {
-                r.style.backgroundColor = '#FFF';
-                r.style.color = '#004146';
-                r.style.opacity = '1';
-              }
-            }
-          });
-        }
-      );
-  };
-
-  // Resetting visited providers on change market,
+  // Resetting visited providers on change of market,
   // until I have figured out how to highligt visited on
   // market change.
   useEffect(() => {
@@ -95,21 +62,54 @@ export const Sidebar = ({
     });
   }, [market]);
 
+  // The below will set the style of any button that has
+  // been visited to have opacity 1 and signify "visited"
+  const styleVisitedButtons = (currentRef, currentMarket, e = null) => {
+    visitedProviders.markets[caseInsensitive(currentMarket)].forEach(visit => {
+      currentRef.forEach(r => {
+        if (e) {
+          if (
+            r.textContent === visit &&
+            r.textContent !== e.target.textContent
+          ) {
+            r.style.backgroundColor = '#FFF';
+            r.style.color = '#004146';
+            r.style.opacity = '1';
+          } else if (
+            r.textContent === visit &&
+            r.textContent === e.target.textContent
+          ) {
+            e.target.style.background = '#F89572';
+            e.target.style.color = '#FFF';
+          }
+        } else if (!e) {
+          if (r.textContent === visit) {
+            r.style.backgroundColor = '#FFF';
+            r.style.color = '#004146';
+            r.style.opacity = '1';
+          }
+        }
+      });
+    });
+  };
+
+  //
   useEffect(() => {
     if (providers.length !== filteredProviders.length && arr.length === 0) {
       setArr(filteredProviders);
       ref.current = new Array(filteredProviders.length);
-      // styleVisitedButtons(ref.current, market);
+      styleVisitedButtons(ref.current, market);
     } else {
       setArr(providers);
       ref.current = new Array(providers.length);
-      // styleVisitedButtons(ref.current, market);
+      styleVisitedButtons(ref.current, market);
     }
   }, [providers, filteredProviders]);
 
+  //
   useEffect(() => {
     setAllProvidersShown(false);
-    // setMakeResetButtonActive(false);
+    setMakeResetButtonActive(false);
     styleVisitedButtons(ref.current, market);
   }, [search]);
 
@@ -132,37 +132,23 @@ export const Sidebar = ({
       });
     }
 
-    setMakeResetButtonActive(true);
-    e.target.style.background = '#F89572';
-    e.target.style.color = '#FFF';
-    e.target.style.opacity = '1';
-
-    // if (search.length < 1) {
-    //   setMakeResetButtonActive(true);
-    //   e.target.style.background = '#F89572';
-    //   e.target.style.color = '#FFF';
-    //   e.target.style.opacity = '1';
-    // } else {
-    //   e.target.style.backgroundColor = '#FFF';
-    //   e.target.style.color = '#004146';
-    //   e.target.style.opacity = '1';
-    // }
+    if (search.length < 1) {
+      setMakeResetButtonActive(true);
+      e.target.style.background = '#F89572';
+      e.target.style.color = '#FFF';
+      e.target.style.opacity = '1';
+    } else {
+      e.target.style.backgroundColor = '#FFF';
+      e.target.style.color = '#004146';
+      e.target.style.opacity = '1';
+    }
 
     styleVisitedButtons(ref.current, market, e);
   };
 
+  //
   const reset = e => {
     e.preventDefault();
-
-    // if (search.length > 1) {
-    //   searchNode.current.value = '';
-    //   showAllProviders();
-    // } else {
-    //   showAllProviders();
-    //   setAllProvidersShown(true);
-    //   setMakeResetButtonActive(false);
-    //   styleVisitedButtons(ref.current, market);
-    // }
 
     if (search.length < 1) {
       showAllProviders();

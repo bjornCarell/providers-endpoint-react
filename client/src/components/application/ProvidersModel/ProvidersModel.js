@@ -22,10 +22,12 @@ export const ProvidersModel = () => {
   const onClickProvider = e => {
     e.preventDefault();
 
-    // When fetching data here, the flicker ocurres
-    // Make into useSingleProvider hook with loading state
     const filterProviderByName = getProviderByName(providersData);
-    setProvider(filterProviderByName(e.target.innerText));
+    // ugly fix to avoid UI flickering on change of provider
+    setTimeout(
+      () => setProvider(filterProviderByName(e.target.innerText)),
+      200
+    );
   };
 
   const onSearch = e => {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '../../library/button/Button';
 import { FlexContainer, FlexItem } from '../../library/flex/FlexStyled';
-import { Label } from '../../library/label/Label';
+import { Label } from '../../library/label/LabelStyled';
 import { Select } from '../../library/select/Select';
 import { SidebarFormStyled } from './SidebarFormStyled';
 

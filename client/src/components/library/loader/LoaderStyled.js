@@ -10,12 +10,17 @@ const Bounce = keyframes`
 
 export const StyledDotsLoader = styled.div`
   display: inline-block;
+  left: 50%;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  text-align: center;
 `;
 
 export const Dot = styled.span`
-  width: ${props => (props.big ? '20px' : '12px')};
-  height: ${props => (props.big ? '20px' : '12px')};
-  background-color: ${props => (props.white ? '#FFF' : '#000')};
+  width: ${props => (props.big ? '5rem' : '3rem')};
+  height: ${props => (props.big ? '5rem' : '3rem')};
+  background-color: ${props => (props.white ? '#FFF' : '#262626')};
   border-radius: 100%;
   display: inline-block;
   animation: ${Bounce} 1s infinite ease-in-out both;
