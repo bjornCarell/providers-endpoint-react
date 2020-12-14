@@ -6,7 +6,8 @@ export const Input = styled.input`
     props.inverse
       ? ({ theme }) => theme.color.secondaryBright
       : ({ theme }) => theme.color.white};
-  border: 1px solid ${({ theme }) => theme.color.secondaryLight};
+  border: ${props =>
+    props.textValue === true ? '1px solid #FF8A61' : '1px solid #FFE8E5'};
   border-radius: ${({ theme }) => theme.animation.radiusS};
   cursor: text;
   -moz-appearance: none;
@@ -37,5 +38,21 @@ export const Input = styled.input`
   :focus {
     border: 1px solid ${({ theme }) => theme.color.secondary};
     outline: none;
+  }
+
+  ::-webkit-search-cancel-button {
+    display: none;
+    /* position: relative;
+    right: 5px;
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    background: ${({ theme }) => theme.color.secondaryDark};
+    transition: all 0.5s ease;
+
+    &:hover {
+      cursor: pointer;
+    } */
   }
 `;

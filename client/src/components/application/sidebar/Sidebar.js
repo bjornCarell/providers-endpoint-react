@@ -60,6 +60,8 @@ export const Sidebar = ({
         {}
       )
     });
+    showAllProviders();
+    setMakeResetButtonActive(false);
   }, [market]);
 
   // The below will set the style of any button that has

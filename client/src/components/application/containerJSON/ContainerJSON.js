@@ -75,6 +75,7 @@ export const ContainerJSON = ({
           onChangeSpace={e => setSpace(e.target.value)}
           onChangeFontSize={e => onChangeFontSize(e)}
           onSearch={e => onSearch(e)}
+          search={search}
           searchNode={searchNode}
         />
       </FlexItem>
