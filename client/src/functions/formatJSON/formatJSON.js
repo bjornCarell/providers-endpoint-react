@@ -1,4 +1,4 @@
-export const formatJSON = (obj, space) => {
+export const formatJSON = (obj, space = 2) => {
   let number;
 
   if (typeof space !== 'number') {

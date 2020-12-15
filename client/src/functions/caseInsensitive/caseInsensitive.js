@@ -1,2 +1,4 @@
-export const caseInsensitive = string =>
-  string ? string.toLowerCase() : false;
+export const caseInsensitive = string => {
+  if (typeof string !== 'string') return String(string).toLowerCase();
+  return string.toLowerCase();
+};

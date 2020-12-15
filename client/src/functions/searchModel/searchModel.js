@@ -1,8 +1,10 @@
-const formString = str =>
+export const formString = str =>
   JSON.stringify(str)
     .toLowerCase()
     .replace(/[_"]/g, ' ') // replace underscore and qoute with space
-    .replace(/[^a-zA-Z ]/g, ''); // remove all special charachters
+    .replace(/[^a-zA-Z ]/g, '') // remove all special charachters
+    .replace(/\s+/g, ' ') // remove conecutive spaces
+    .trim();
 
 export const searchModel = model => text => {
   const searchResult = [];
@@ -16,9 +18,12 @@ export const searchModel = model => text => {
       ) {
         searchResult.push(obj);
       } else if (
-        formString(entry)
-          .toLowerCase()
-          .includes(text.toLowerCase().trim())
+        formString(entry).includes(
+          text
+            .toLowerCase()
+            .replace(/\s+/g, ' ')
+            .trim()
+        )
       ) {
         searchResult.push(obj);
       }
