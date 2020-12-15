@@ -78,6 +78,7 @@ export const Sidebar = ({
             r.style.color = '#004146';
             r.style.opacity = '1';
           } else if (
+            search.length < 1 &&
             r.textContent === visit &&
             r.textContent === e.target.textContent
           ) {

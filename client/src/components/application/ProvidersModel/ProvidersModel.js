@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { markets } from '../../../markets/markets';
 import { useProviders } from '../../../hooks/useProviders';
 import { getProviderByName } from '../../../functions/getProviderByName/getProviderByName';
+import { delay } from '../../../functions/delay/delay';
 import { Container } from '../../library/container/Container';
 import { Sidebar } from '../sidebar/Sidebar';
 import { ContainerJSON } from '../containerJSON/ContainerJSON';
@@ -24,10 +25,7 @@ export const ProvidersModel = () => {
 
     const filterProviderByName = getProviderByName(providersData);
     // ugly fix to avoid UI flickering on change of provider
-    setTimeout(
-      () => setProvider(filterProviderByName(e.target.innerText)),
-      200
-    );
+    return delay(setProvider, filterProviderByName(e.target.innerText), 200);
   };
 
   const onSearch = e => {
