@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FlexContainer, FlexItem } from '../../library/flex/FlexStyled';
-import { Form } from '../../library/form/Form';
+import { Form } from '../../library/form/FormStyled';
 import { Label } from '../../library/label/LabelStyled';
 import { Select } from '../../library/select/Select';
 import { Input } from '../../library/input/InputStyled';

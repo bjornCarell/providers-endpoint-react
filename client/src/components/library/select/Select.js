@@ -21,7 +21,7 @@ export const Select = ({
       height={height}
       onChange={onChange}
     >
-      {dataType === 'markets'
+      {dataType === 'markets' // move component to application folder?
         ? data.map(({ name, code }) => <option key={code}>{name}</option>)
         : data.map(item => <option key={item}>{item}</option>)}
     </SelectStyled>
@@ -32,7 +32,7 @@ Select.propTypes = {
   data: PropTypes.array.isRequired,
   dataType: PropTypes.string,
   defaultValue: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   inverse: PropTypes.bool,
   boxShadow: PropTypes.bool,
   fontWieght: PropTypes.string,

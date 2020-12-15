@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Form } from '../../library/form/Form';
+import { Form } from '../../library/form/FormStyled';
 
 export const SidebarFormStyled = styled(Form)`
   background: rgba(1, 63, 69, 0.97);

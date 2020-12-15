@@ -3,7 +3,7 @@ import { markets } from '../../../markets/markets';
 import { useProviders } from '../../../hooks/useProviders';
 import { getProviderByName } from '../../../functions/getProviderByName/getProviderByName';
 import { delay } from '../../../functions/delay/delay';
-import { Container } from '../../library/container/Container';
+import { Container } from '../../library/container/ContainerStyled';
 import { Sidebar } from '../sidebar/Sidebar';
 import { ContainerJSON } from '../containerJSON/ContainerJSON';
 
