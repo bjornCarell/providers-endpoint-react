@@ -1,4 +1,4 @@
-# Providers Endpoint Search 
+# Providers Endpoint 
 Navigate the Tink providers endpoint 
 
 ## Prerequisites
