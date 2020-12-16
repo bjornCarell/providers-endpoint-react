@@ -7,7 +7,7 @@ import { Container } from '../../library/container/ContainerStyled';
 import { Sidebar } from '../sidebar/Sidebar';
 import { ContainerJSON } from '../containerJSON/ContainerJSON';
 
-export const ProvidersModel = () => {
+export const ProvidersContainer = () => {
   const [provider, setProvider] = useState([]);
   const [market, setMarket] = useState('Sweden');
   const [search, setSearch] = useState('');

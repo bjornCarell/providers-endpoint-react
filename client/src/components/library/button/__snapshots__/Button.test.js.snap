@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders default button correctly 1`] = `
+.c0 {
+  background-color: #427783;
+  border: 1px solid transparent;
+  border-radius: 0.875rem;
+  box-shadow: 0px 4px 8px 0 rgba(0,0,0,0.1);
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  height: auto;
+  padding: 1.2rem 2.4rem;
+  -webkit-transition: all .25s cubic-bezier(0.4,0,0.2,1);
+  transition: all .25s cubic-bezier(0.4,0,0.2,1);
+  width: auto;
+}
+
+.c0:hover {
+  background-color: #004146;
+  box-shadow: 0px 8px 8px 0 rgba(0,0,0,0.12);
+}
+
+<button
+  className="c0"
+  height="auto"
+  width="auto"
+>
+  Tink
+</button>
+`;
+
+exports[`renders default button correctly 2`] = `
+<button
+  className="sc-bdfBwQ XBVmM"
+  height="auto"
+  width="auto"
+>
+  Tink
+</button>
+`;
+
+exports[`renders inverse button correctly 1`] = `
+.c0 {
+  background-color: #427783;
+  border: 1px solid transparent;
+  border-radius: 0.875rem;
+  box-shadow: 0px 4px 8px 0 rgba(0,0,0,0.1);
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  height: auto;
+  padding: 1.2rem 2.4rem;
+  -webkit-transition: all .25s cubic-bezier(0.4,0,0.2,1);
+  transition: all .25s cubic-bezier(0.4,0,0.2,1);
+  width: auto;
+  background-color: #FFFFFF;
+  color: #427783;
+}
+
+.c0:hover {
+  background-color: #004146;
+  box-shadow: 0px 8px 8px 0 rgba(0,0,0,0.12);
+}
+
+.c0:hover {
+  background-color: #004146;
+  color: #FFFFFF;
+}
+
+<button
+  className="c0"
+  height="auto"
+  width="auto"
+>
+  Think
+</button>
+`;

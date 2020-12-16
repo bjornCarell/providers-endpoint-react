@@ -60,11 +60,11 @@ export const Heading = ({
 };
 
 Heading.propTypes = {
-  h2: PropTypes.node,
-  h3: PropTypes.node,
-  h4: PropTypes.node,
-  h5: PropTypes.node,
-  noMargin: PropTypes.node,
-  right: PropTypes.node,
-  center: PropTypes.node
+  h2: PropTypes.bool,
+  h3: PropTypes.bool,
+  h4: PropTypes.bool,
+  h5: PropTypes.bool,
+  noMargin: PropTypes.bool,
+  right: PropTypes.bool,
+  center: PropTypes.bool
 };

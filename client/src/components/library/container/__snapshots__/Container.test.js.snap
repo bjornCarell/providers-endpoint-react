@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly with fullVertical prop 1`] = `
+.c0 {
+  margin: 0 auto;
+  padding-bottom: 0;
+  padding-left: calc((100vw - 96rem) / 2);
+  padding-right: calc((100vw - 96rem) / 2);
+  padding-top: 0;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`renders correctly with noPaddingLeft prop 1`] = `
+.c0 {
+  margin: 0 auto;
+  padding-bottom: 2.5rem;
+  padding-left: 0;
+  padding-right: calc((100vw - 96rem) / 2);
+  padding-top: 2.5rem;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`renders correctly with noPaddingRight prop 1`] = `
+.c0 {
+  margin: 0 auto;
+  padding-bottom: 2.5rem;
+  padding-left: calc((100vw - 96rem) / 2);
+  padding-right: 0;
+  padding-top: 2.5rem;
+}
+
+<div
+  className="c0"
+/>
+`;

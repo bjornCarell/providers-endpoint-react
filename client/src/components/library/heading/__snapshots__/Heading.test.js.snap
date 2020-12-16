@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders h1 with conditional style 1`] = `
+.c0 {
+  font-size: 6.85rem;
+  margin-bottom: 4rem;
+  color: #262626;
+  font-weight: 600;
+  margin-top: 0;
+  max-width: 100%;
+  text-align: start;
+}
+
+<h1
+  className="c0"
+>
+  Providers
+</h1>
+`;
+
+exports[`renders h2 with conditional style 1`] = `
+.c0 {
+  font-size: 4.22rem;
+  margin-bottom: 2rem;
+  color: #262626;
+  font-weight: 600;
+  margin-top: 0;
+  max-width: 100%;
+  text-align: start;
+}
+
+<h2
+  className="c0"
+>
+  Providers
+</h2>
+`;
+
+exports[`renders h3 with conditional style 1`] = `
+.c0 {
+  font-size: 2.6rem;
+  margin-bottom: 1rem;
+  color: #262626;
+  font-weight: 600;
+  margin-top: 0;
+  max-width: 100%;
+  text-align: start;
+}
+
+<h3
+  className="c0"
+>
+  Providers
+</h3>
+`;
+
+exports[`renders h3 with conditional style 2`] = `
+.c0 {
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
+  color: #262626;
+  font-weight: 600;
+  margin-top: 0;
+  max-width: 100%;
+  text-align: start;
+}
+
+<h4
+  className="c0"
+>
+  Providers
+</h4>
+`;
+
+exports[`renders h5 with conditional style 1`] = `
+.c0 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #262626;
+  font-weight: 600;
+  margin-top: 0;
+  max-width: 100%;
+  text-align: start;
+}
+
+<h5
+  className="c0"
+>
+  Providers
+</h5>
+`;

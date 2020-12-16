@@ -35,14 +35,14 @@ export const theme = {
     xl: 800
   },
   animation: {
-    shadowAround: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)',
-    shadowAroundHover: '0px 0px 16px 0px rgba(0, 0, 0, 0.13)',
+    shadowAround: '0px 0px 10px 0px rgba(0,0,0,0.1)',
+    shadowAroundHover: '0px 0px 16px 0px rgba(0,0,0,0.13)',
     shadowBottom: '0px 4px 8px 0 rgba(0,0,0,0.1)',
     shadowBottomHover: '0px 8px 8px 0 rgba(0,0,0,0.12)',
     radiusS: '0.375rem',
     radiusM: '0.875rem',
     radiusL: '2rem',
-    transition: 'all .25s cubic-bezier(0.4, 0, 0.2, 1)'
+    transition: 'all .25s cubic-bezier(0.4,0,0.2,1)'
   },
   zIndex: {
     sidebar: 4

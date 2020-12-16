@@ -1,4 +1,4 @@
 import React from 'react';
-import { ProvidersModel } from '../components/application/providersModel/ProvidersModel';
+import { ProvidersContainer } from '../components/application/providersContainer/ProvidersContainer';
 
-export const ProvidersPage = () => <ProvidersModel />;
+export const ProvidersPage = () => <ProvidersContainer />;

@@ -15,7 +15,7 @@ export const ButtonStyled = styled.button.attrs(({ width, height }) => ({
       : ({ theme }) => theme.animation.radiusM};
   box-shadow: ${props => {
     if (props.noShadow) return 'none';
-    if (props.around) return ({ theme }) => theme.animation.shadowAround;
+    if (props.shadowAround) return ({ theme }) => theme.animation.shadowAround;
     return ({ theme }) => theme.animation.shadowBottom;
   }};
   color: ${({ theme }) => theme.color.white};

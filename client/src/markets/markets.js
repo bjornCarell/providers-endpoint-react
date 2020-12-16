@@ -50,5 +50,9 @@ export const markets = [
   {
     code: 'GB',
     name: 'United Kingdom'
+  },
+  {
+    code: 'FO',
+    name: 'Faroe Islands'
   }
 ];
