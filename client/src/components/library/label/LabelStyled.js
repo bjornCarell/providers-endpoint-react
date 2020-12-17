@@ -9,7 +9,7 @@ export const Label = styled.label`
   font-weight: ${props =>
     props.medium
       ? ({ theme }) => theme.fontWeight.large
-      : ({ theme }) => theme.fontSize.medium};
+      : ({ theme }) => theme.fontWeight.medium};
   margin-bottom: ${props =>
     props.block ? ({ theme }) => theme.spacing.xss : 0};
   margin-top: ${props =>

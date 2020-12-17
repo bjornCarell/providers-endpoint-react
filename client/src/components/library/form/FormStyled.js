@@ -8,7 +8,7 @@ export const Form = styled.form.attrs(({ background, height, width }) => ({
   background: ${props => props.background};
   border-radius: 5px;
   box-shadow: ${props =>
-    props.boxShadow ? ({ theme }) => theme.animation.shadowArround : 'none'};
+    props.boxShadow ? ({ theme }) => theme.animation.shadowAround : 'none'};
   display: flex;
   flex-direction: ${props => (props.flexRow ? 'row' : 'column')};
   height: ${props => props.height};
