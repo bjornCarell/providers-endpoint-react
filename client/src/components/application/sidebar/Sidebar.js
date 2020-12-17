@@ -24,7 +24,8 @@ export const Sidebar = ({
   onClickProvider,
   providers,
   search,
-  // searchNode,
+  setSearch,
+  searchNode,
   showAllProviders
 }) => {
   const ref = useRef([]);
@@ -62,6 +63,8 @@ export const Sidebar = ({
     });
     showAllProviders();
     setMakeResetButtonActive(false);
+    setSearch('');
+    searchNode.current.value = '';
   }, [market]);
 
   // The below will set the style of any button that has
@@ -239,6 +242,7 @@ Sidebar.propTypes = {
   onSearch: PropTypes.func.isRequired,
   providers: PropTypes.array.isRequired,
   search: PropTypes.string.isRequired,
-  // searchNode: PropTypes.object.isRequired,
+  setSearch: PropTypes.func.isRequired,
+  searchNode: PropTypes.object.isRequired,
   showAllProviders: PropTypes.func.isRequired
 };

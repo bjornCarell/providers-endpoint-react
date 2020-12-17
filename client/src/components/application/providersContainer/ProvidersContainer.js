@@ -47,6 +47,7 @@ export const ProvidersContainer = () => {
         providers={providersData}
         search={search}
         searchNode={searchNode}
+        setSearch={setSearch}
         setProvider={setProvider}
         showAllProviders={showAllProviders}
       />
