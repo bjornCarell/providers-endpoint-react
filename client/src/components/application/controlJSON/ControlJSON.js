@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useScrollTop } from '../../../hooks/useScrollTop';
 import { FlexContainer, FlexItem } from '../../library/flex/FlexStyled';
+import { SearchAnimation } from '../search/SearchAnimation';
 import { Form } from '../../library/form/FormStyled';
 import { Label } from '../../library/label/LabelStyled';
 import { Select } from '../../library/select/Select';
@@ -18,13 +20,15 @@ export const ControlJSON = ({
   const fontSizes = [10, 12, 14, 16, 18, 20, 22, 24];
   const [isText, setIsText] = useState(false);
 
+  const { top } = useScrollTop();
+
   useEffect(() => {
     if (search.length > 0) setIsText(true);
     else setIsText(false);
   }, [search]);
 
   return (
-    <Form noMargin noPadding flexRow width="50rem">
+    <Form noMargin noPadding width="50rem">
       <FlexContainer>
         <FlexItem noPaddingTop>
           <Label block>Space</Label>
@@ -34,6 +38,7 @@ export const ControlJSON = ({
             onChange={onChangeSpace}
             boxShadow={true}
             fontWieght="bold"
+            width="4rem"
           />
         </FlexItem>
         <FlexItem noPaddingTop>
@@ -44,20 +49,45 @@ export const ControlJSON = ({
             onChange={onChangeFontSize}
             boxShadow={true}
             fontWieght="bold"
+            width="4rem"
           />
         </FlexItem>
+        {top > 300 ? (
+          <SearchAnimation
+            noPaddingTop
+            style={{
+              position: 'fixed',
+              top: '5rem',
+              right: '5rem',
+              width: '30rem'
+            }}
+          >
+            <Input
+              textValue={isText}
+              boxShadow
+              onChange={onSearch}
+              onKeyDown={onKeyDown}
+              ref={searchNode}
+              type="search"
+              placeholder="Search"
+              value={search}
+            />
+          </SearchAnimation>
+        ) : (
+          <FlexItem noPaddingTop flexFive>
+            <Label block>Search</Label>
+            <Input
+              textValue={isText}
+              boxShadow
+              onChange={onSearch}
+              onKeyDown={onKeyDown}
+              ref={searchNode}
+              type="search"
+              value={search}
+            />
+          </FlexItem>
+        )}
       </FlexContainer>
-      <FlexItem noPaddingTop>
-        <Label block>Search the model</Label>
-        <Input
-          textValue={isText}
-          boxShadow
-          onChange={onSearch}
-          onKeyDown={onKeyDown}
-          ref={searchNode}
-          type="search"
-        />
-      </FlexItem>
     </Form>
   );
 };

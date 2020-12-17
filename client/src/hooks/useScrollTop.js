@@ -5,7 +5,6 @@ export const useScrollTop = () => {
 
   useEffect(() => {
     const handleScrollTop = () => setScrollTop({ top: window.scrollY });
-
     document.addEventListener('scroll', handleScrollTop);
 
     return () => {

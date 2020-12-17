@@ -64,7 +64,7 @@ export const Sidebar = ({
     showAllProviders();
     setMakeResetButtonActive(false);
     setSearch('');
-    searchNode.current.value = '';
+    if (searchNode.current) searchNode.current.value = '';
   }, [market]);
 
   // The below will set the style of any button that has
@@ -81,7 +81,6 @@ export const Sidebar = ({
             r.style.color = '#004146';
             r.style.opacity = '1';
           } else if (
-            search.length < 1 &&
             r.textContent === visit &&
             r.textContent === e.target.textContent
           ) {
@@ -138,16 +137,11 @@ export const Sidebar = ({
       });
     }
 
-    if (search.length < 1) {
-      setMakeResetButtonActive(true);
-      e.target.style.background = '#F89572';
-      e.target.style.color = '#FFF';
-      e.target.style.opacity = '1';
-    } else {
-      e.target.style.backgroundColor = '#FFF';
-      e.target.style.color = '#004146';
-      e.target.style.opacity = '1';
-    }
+    if (search.length < 1) setMakeResetButtonActive(true);
+
+    e.target.style.background = '#F89572';
+    e.target.style.color = '#FFF';
+    e.target.style.opacity = '1';
 
     styleVisitedButtons(ref.current, market, e);
   };

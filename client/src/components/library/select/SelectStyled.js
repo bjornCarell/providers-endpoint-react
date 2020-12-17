@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const SelectStyled = styled.select`
+export const SelectStyled = styled.select.attrs(({ width }) => ({
+  width: width || '100%'
+}))`
   appearance: none;
   background: ${props =>
     props.inverse === true
@@ -27,7 +29,7 @@ export const SelectStyled = styled.select`
       : ({ theme }) => theme.spacing.large};
   padding: 2px ${({ theme }) => theme.spacing.small};
   transition: ${({ theme }) => theme.animation.transition};
-  width: 100%;
+  width: ${props => props.width};
 
   :focus {
     outline: none;

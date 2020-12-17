@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { SelectStyled } from './SelectStyled';
 
 export const Select = ({
+  boxShadow,
   data,
   dataType = '',
   defaultValue,
-  onChange,
-  inverse,
-  boxShadow,
   fontWieght,
-  height
+  height,
+  inverse,
+  onChange,
+  width
 }) => {
   return (
     <SelectStyled
@@ -20,6 +21,7 @@ export const Select = ({
       fontWieght={fontWieght}
       height={height}
       onChange={onChange}
+      width={width}
     >
       {dataType === 'markets' // move component to application folder?
         ? data.map(({ name, code }) => <option key={code}>{name}</option>)
@@ -36,5 +38,6 @@ Select.propTypes = {
   inverse: PropTypes.bool,
   boxShadow: PropTypes.bool,
   fontWieght: PropTypes.string,
-  height: PropTypes.string
+  height: PropTypes.string,
+  width: PropTypes.string
 };

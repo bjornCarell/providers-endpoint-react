@@ -7,13 +7,14 @@ import { getProviders } from './getProviders/getProviders';
 dotenv.config();
 
 const app = express();
+const distPath = path.join(__dirname,'..', 'client/build')
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(distPath));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  res.sendFile(distPath, 'index.html');
 });
 
 app.get('/providers/:market',  (req, res) => {

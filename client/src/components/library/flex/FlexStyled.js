@@ -46,6 +46,8 @@ export const FlexItem = styled.div`
     if (props.flexNone) return 0;
     if (props.flexTwo) return 2;
     if (props.flexThree) return 3;
+    if (props.flexFour) return 4;
+    if (props.flexFive) return 5;
     return 1;
   }};
   padding: ${props => (props.noPadding ? 0 : '1.5rem')};

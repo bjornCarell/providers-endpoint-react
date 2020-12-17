@@ -18,12 +18,12 @@ export const StyledDotsLoader = styled.div`
 `;
 
 export const Dot = styled.span`
-  width: ${props => (props.big ? '5rem' : '3rem')};
-  height: ${props => (props.big ? '5rem' : '3rem')};
+  animation: ${Bounce} 1s infinite ease-in-out both;
   background-color: ${props => (props.white ? '#FFF' : '#262626')};
   border-radius: 100%;
   display: inline-block;
-  animation: ${Bounce} 1s infinite ease-in-out both;
+  height: ${props => (props.big ? '5rem' : '3rem')};
+  width: ${props => (props.big ? '5rem' : '3rem')};
   &:first-child {
     animation-delay: -0.32s;
   }

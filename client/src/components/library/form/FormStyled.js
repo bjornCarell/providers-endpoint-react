@@ -9,10 +9,10 @@ export const Form = styled.form.attrs(({ background, height, width }) => ({
   border-radius: 5px;
   box-shadow: ${props =>
     props.boxShadow ? ({ theme }) => theme.animation.shadowAround : 'none'};
-  display: flex;
-  flex-direction: ${props => (props.flexRow ? 'row' : 'column')};
+  /* display: flex;
+  flex-direction: ${props => (props.flexRow ? 'row' : 'column')}; */
   height: ${props => props.height};
-  justify-content: space-around;
+  /* justify-content: stretch; */
   margin-top: ${props =>
     props.noMargin ? '0rem' : ({ theme }) => theme.spacing.small};
   margin-left: ${props =>
