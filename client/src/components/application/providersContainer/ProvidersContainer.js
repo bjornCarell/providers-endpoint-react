@@ -22,10 +22,10 @@ export const ProvidersContainer = () => {
 
   const onClickProvider = e => {
     e.preventDefault();
+    const { innerText } = e.target;
 
     const filterProviderByName = getProviderByName(providersData);
-    // ugly fix to avoid UI flickering on change of provider
-    return delay(setProvider, filterProviderByName(e.target.innerText), 200);
+    return delay(setProvider, filterProviderByName(innerText), 200);
   };
 
   const onSearch = e => {
