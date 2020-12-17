@@ -9,6 +9,7 @@ import { Input } from '../../library/input/InputStyled';
 export const ControlJSON = ({
   onChangeSpace,
   onChangeFontSize,
+  onKeyDown,
   onSearch,
   search,
   searchNode
@@ -52,6 +53,7 @@ export const ControlJSON = ({
           textValue={isText}
           boxShadow
           onChange={onSearch}
+          onKeyDown={onKeyDown}
           ref={searchNode}
           type="search"
         />
@@ -63,6 +65,7 @@ export const ControlJSON = ({
 ControlJSON.propTypes = {
   onChangeFontSize: PropTypes.func.isRequired,
   onChangeSpace: PropTypes.func.isRequired,
+  onKeyDown: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   search: PropTypes.string.isRequired,
   searchNode: PropTypes.object

@@ -68,12 +68,16 @@ export const ContainerJSON = ({
     setFontSize(`${rems}`);
   };
 
+  const onKeyDown = e => {
+    if (e.keyCode === 13) e.preventDefault();
+  };
   return (
     <FlexContainer column style={{ marginLeft: '50rem' }}>
       <FlexItem noPadding>
         <ControlJSON
           onChangeSpace={e => setSpace(e.target.value)}
           onChangeFontSize={e => onChangeFontSize(e)}
+          onKeyDown={e => onKeyDown(e)}
           onSearch={e => onSearch(e)}
           search={search}
           searchNode={searchNode}
