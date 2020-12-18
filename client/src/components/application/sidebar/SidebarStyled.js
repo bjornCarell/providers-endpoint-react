@@ -18,7 +18,7 @@ export const LeftMenuInner = styled.div`
   background: ${props => props.background};
   height: 100%;
   padding-bottom: ${({ theme }) => theme.spacing.medium};
-  padding-left: ${({ theme }) => theme.spacing.medium};
+  padding-left: 3rem;
   padding-top: ${({ theme }) => theme.spacing.medium};
   position: fixed;
   width: 40rem;
