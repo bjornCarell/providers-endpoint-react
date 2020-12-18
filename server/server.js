@@ -9,7 +9,10 @@ dotenv.config();
 const app = express();
 const distPath = path.join(__dirname,'..', 'client/build')
 
-app.use(express.static(distPath));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(distPath));
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

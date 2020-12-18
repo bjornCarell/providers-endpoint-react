@@ -4,9 +4,10 @@
   "description": "Get to know the providers/market endpoint",
   "main": "server.js",
   "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "test": "jest",
     "client": "cd client && npm start",
-    "start": "node --exec babel-node -r esm server/server.js",
+    "server": "node server/server.js",
     "dev": "concurrently --kill-others-on-fail \"nodemon --exec babel-node -r esm server/server.js\" \"npm run client\"",
     "postinstall": "cd client && npm install"
   },

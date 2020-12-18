@@ -25,11 +25,10 @@
     "whatwg-fetch": "^3.5.0"
   },
   "scripts": {
-    "start-client": "react-scripts start",
-    "build": "react-scripts build && (cd .. && npm install",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "start": "cd .. && npm run start"
+    "eject": "react-scripts eject"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
