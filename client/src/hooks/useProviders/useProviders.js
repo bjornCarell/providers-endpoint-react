@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { useState, useEffect } from 'react';
-import { getMarketCode } from '../functions/getMarketCode/getMarketCode';
+import { getMarketCode } from '../../functions/getMarketCode/getMarketCode';
 
 export const useProviders = market => {
   const [providersData, setProvidersData] = useState([]);

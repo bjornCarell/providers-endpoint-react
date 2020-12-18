@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Pre with set styles 1`] = `
+.c0 {
+  -webkit-animation: kKWKMx 0.5s ease-in;
+  animation: kKWKMx 0.5s ease-in;
+  display: block;
+  font-size: 1.6rem;
+  margin-top: 8rem;
+}
+
+<pre
+  className="c0"
+  display="block"
+  fontSize="1.6rem"
+>
+  {"accessType":"OPEN_BANKING","authenticationUserType":"PERSONAL","authenticationFlow":"REDIRECT","capabilities":["CHECKING_ACCOUNTS"],"credentialsType":"THIRD_PARTY_APP","currency":"DKK","displayName":"BankNordik","fields":[],"financialInstitutionId":"bb1f3af4840d4920bab0fe9a39e0e263","financialInstitutionName":"BankNordik","images":{"icon":"https://cdn.tink.se/provider-images/fo/fo-banknordik-password.png","banner":null},"market":"FO","multiFactor":true,"name":"fo-banknordik-ob","popular":false,"status":"ENABLED","transactional":true,"type":"BANK"}
+</pre>
+`;

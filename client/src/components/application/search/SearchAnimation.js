@@ -14,6 +14,7 @@ const fadeInDown = keyframes`
 
 export const SearchAnimation = styled(FlexItem)`
   animation: ${fadeInDown} 0.5s ease-in-out both;
+  display: 'block';
   position: fixed;
   top: 5rem;
   right: 5rem;

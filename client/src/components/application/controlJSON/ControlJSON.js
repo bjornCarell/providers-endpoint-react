@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useScrollTop } from '../../../hooks/useScrollTop';
+import { useScrollTop } from '../../../hooks/useScrollTop/useScrollTop';
 import { FlexContainer, FlexItem } from '../../library/flex/FlexStyled';
 import { SearchAnimation } from '../search/SearchAnimation';
 import { Form } from '../../library/form/FormStyled';

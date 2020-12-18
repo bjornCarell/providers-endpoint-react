@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { markets } from '../../../markets/markets';
-import { useProviders } from '../../../hooks/useProviders';
+import { useProviders } from '../../../hooks/useProviders/useProviders';
 import { getProviderByName } from '../../../functions/getProviderByName/getProviderByName';
 import { delay } from '../../../functions/delay/delay';
 import { Container } from '../../library/container/ContainerStyled';

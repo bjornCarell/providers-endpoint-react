@@ -10,8 +10,10 @@
     "@babel/register": "^7.12.10",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
+    "@testing-library/react-hooks": "^3.7.0",
     "@testing-library/user-event": "^12.6.0",
     "eslint": "^7.15.0",
+    "fetch-mock": "^9.11.0",
     "jest-styled-components": "^7.0.3",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -19,7 +21,8 @@
     "react-scripts": "4.0.0",
     "react-test-renderer": "^17.0.1",
     "styled-components": "^5.2.1",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "whatwg-fetch": "^3.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
