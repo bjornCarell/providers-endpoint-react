@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { formatJSON } from '../../../functions/formatJSON/formatJSON';
 import { searchModel } from '../../../functions/searchModel/searchModel';
-import { FlexContainer, FlexItem } from '../../library/flex/FlexStyled';
+import { ContainerJSONStyled } from './ContainerJSONStyled';
+import { FlexItem } from '../../library/flex/FlexStyled';
 import { Pre } from '../pre/Pre';
 import { ControlJSON } from '../controlJSON/ControlJSON';
 import { Loader } from '../../library/loader/Loader';
@@ -72,7 +73,7 @@ export const ContainerJSON = ({
     if (e.keyCode === 13) e.preventDefault();
   };
   return (
-    <FlexContainer column style={{ marginLeft: '50rem' }}>
+    <ContainerJSONStyled column>
       <FlexItem noPadding>
         <ControlJSON
           onChangeSpace={e => setSpace(e.target.value)}
@@ -101,7 +102,7 @@ export const ContainerJSON = ({
           </>
         )}
       </FlexItem>
-    </FlexContainer>
+    </ContainerJSONStyled>
   );
 };
 
@@ -113,7 +114,7 @@ ContainerJSON.propTypes = {
   provider: PropTypes.array.isRequired,
   providers: PropTypes.array.isRequired,
   search: PropTypes.string.isRequired,
-  searchNode: PropTypes.object.isRequired,
+  searchNode: PropTypes.object,
   setProvider: PropTypes.func.isRequired,
   setFilteredProviders: PropTypes.func.isRequired
 };

@@ -23,7 +23,7 @@ export const Select = ({
       onChange={onChange}
       width={width}
     >
-      {dataType === 'markets' // move component to application folder?
+      {data && dataType === 'markets' // move component to application folder?
         ? data.map(({ name, code }) => <option key={code}>{name}</option>)
         : data.map(item => <option key={item}>{item}</option>)}
     </SelectStyled>

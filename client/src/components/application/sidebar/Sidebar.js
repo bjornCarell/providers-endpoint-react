@@ -22,7 +22,6 @@ export const Sidebar = ({
   markets,
   onChangeMarket,
   onClickProvider,
-  providers,
   search,
   setSearch,
   searchNode,
@@ -30,7 +29,6 @@ export const Sidebar = ({
 }) => {
   const ref = useRef([]);
   const scrollTop = useRef('');
-  const [arr, setArr] = useState([]);
   const [allProvidersShown, setAllProvidersShown] = useState(true);
   const [makeResetButtonActive, setMakeResetButtonActive] = useState(false);
   const [visitedProviders, setVisitedProviders] = useState({ markets: {} });
@@ -100,16 +98,9 @@ export const Sidebar = ({
 
   //
   useEffect(() => {
-    if (providers.length !== filteredProviders.length && arr.length === 0) {
-      setArr(filteredProviders);
-      ref.current = new Array(filteredProviders.length);
-      styleVisitedButtons(ref.current, market);
-    } else {
-      setArr(providers);
-      ref.current = new Array(providers.length);
-      styleVisitedButtons(ref.current, market);
-    }
-  }, [providers, filteredProviders]);
+    ref.current = new Array(filteredProviders.length);
+    styleVisitedButtons(ref.current, market);
+  }, [filteredProviders]);
 
   //
   useEffect(() => {
@@ -185,39 +176,26 @@ export const Sidebar = ({
             ''
           ) : (
             <Ul column>
-              {!allProvidersShown // Make this into a component SidenbarList
-                ? filteredProviders.map(({ name, status }, i) => (
-                    <Li key={name} noPaddingBottom noPaddingTop>
-                      <FlexContainer alignCenter>
-                        <ButtonItem
-                          key={name}
-                          onClick={e => toggleProvider(e)}
-                          ref={el => {
-                            ref.current[i] = el;
-                          }}
-                        >
-                          {name}
-                        </ButtonItem>
-                        <ProvidersStatus status={providerStatus(status)} />
-                      </FlexContainer>
-                    </Li>
-                  ))
-                : providers.map(({ name, status }, i) => (
-                    <Li key={name} noPaddingBottom noPaddingTop>
-                      <FlexContainer alignCenter>
-                        <ButtonItem
-                          key={name}
-                          onClick={e => toggleProvider(e)}
-                          ref={e => {
-                            ref.current[i] = e;
-                          }}
-                        >
-                          {name}
-                        </ButtonItem>
-                        <ProvidersStatus status={providerStatus(status)} />
-                      </FlexContainer>
-                    </Li>
-                  ))}
+              {filteredProviders.map(({ displayName, name, status }, i) => (
+                <Li
+                  key={`${name}: ${displayName}`}
+                  noPaddingBottom
+                  noPaddingTop
+                >
+                  <FlexContainer alignCenter>
+                    <ButtonItem
+                      key={name}
+                      onClick={e => toggleProvider(e)}
+                      ref={el => {
+                        ref.current[i] = el;
+                      }}
+                    >
+                      {name} filtered
+                    </ButtonItem>
+                    <ProvidersStatus status={providerStatus(status)} />
+                  </FlexContainer>
+                </Li>
+              ))}
             </Ul>
           )}
         </LeftMenuInnest>
@@ -234,9 +212,8 @@ Sidebar.propTypes = {
   onChangeMarket: PropTypes.func.isRequired,
   onClickProvider: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
-  providers: PropTypes.array.isRequired,
   search: PropTypes.string.isRequired,
   setSearch: PropTypes.func.isRequired,
-  searchNode: PropTypes.object.isRequired,
+  searchNode: PropTypes.object,
   showAllProviders: PropTypes.func.isRequired
 };

@@ -9,8 +9,8 @@ import { Select } from '../../library/select/Select';
 import { Input } from '../../library/input/InputStyled';
 
 export const ControlJSON = ({
-  onChangeSpace,
   onChangeFontSize,
+  onChangeSpace,
   onKeyDown,
   onSearch,
   search,

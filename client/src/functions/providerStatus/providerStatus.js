@@ -1,4 +1,4 @@
-export const providerStatus = status => {
+export const providerStatus = (status = '') => {
   if (status.includes('_')) {
     return status
       .split('_')

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ProvidersStatusStyled } from './ProviderStatusStyled';
 
 export const ProvidersStatus = ({ status }) => (
-  <ProvidersStatusStyled>{status}</ProvidersStatusStyled>
+  <ProvidersStatusStyled>{status && status}</ProvidersStatusStyled>
 );
 
 ProvidersStatus.propTypes = {
