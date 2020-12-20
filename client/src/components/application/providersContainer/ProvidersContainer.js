@@ -53,7 +53,6 @@ export const ProvidersContainer = () => {
       />
       <Container noPaddingLeft>
         <ContainerJSON
-          filteredProviders={filteredProviders}
           loading={loading}
           market={market}
           onSearch={e => onSearch(e)}

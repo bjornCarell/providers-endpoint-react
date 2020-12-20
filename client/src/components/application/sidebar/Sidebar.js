@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 // import { useScrollTop } from '../../../hooks/useScrollTop';
 import { providerStatus } from '../../../functions/providerStatus/providerStatus';
 import { caseInsensitive } from '../../../functions/caseInsensitive/caseInsensitive';
+import { styleVisitedButtons } from './styleVisitedButtons';
 import {
   SidebarStyled,
   LeftMenuInner,
@@ -22,6 +23,7 @@ export const Sidebar = ({
   markets,
   onChangeMarket,
   onClickProvider,
+  providers,
   search,
   setSearch,
   searchNode,
@@ -33,18 +35,26 @@ export const Sidebar = ({
   const [makeResetButtonActive, setMakeResetButtonActive] = useState(false);
   const [visitedProviders, setVisitedProviders] = useState({ markets: {} });
 
-  //
-  useState(() => {
-    setVisitedProviders({
-      markets: markets.reduce(
-        (acc, mark) => ({
-          ...acc,
-          [caseInsensitive(mark.name)]: []
-        }),
-        {}
-      )
-    });
-  }, []);
+  const [allRefs, setAllRefs] = useState([]);
+
+  useEffect(() => {
+    if (
+      providers.length > 0 &&
+      filteredProviders.length > 0 &&
+      providers.length !== filteredProviders.length
+    ) {
+      setMakeResetButtonActive(true);
+    } else if (
+      providers.length > 0 &&
+      search.length > 0 &&
+      providers.length !== filteredProviders.length
+    ) {
+      setMakeResetButtonActive(true);
+    } else {
+      setMakeResetButtonActive(false);
+    }
+    ref.current = new Array(filteredProviders.length);
+  }, [providers, filteredProviders, search]);
 
   // Resetting visited providers on change of market,
   // until I have figured out how to highligt visited on
@@ -60,59 +70,29 @@ export const Sidebar = ({
       )
     });
     showAllProviders();
-    setMakeResetButtonActive(false);
     setSearch('');
     if (searchNode.current) searchNode.current.value = '';
   }, [market]);
 
-  // The below will set the style of any button that has
-  // been visited to have opacity 1 and signify "visited"
-  const styleVisitedButtons = (currentRef, currentMarket, e = null) => {
-    visitedProviders.markets[caseInsensitive(currentMarket)].forEach(visit => {
-      currentRef.forEach(r => {
-        if (e) {
-          if (
-            r.textContent === visit &&
-            r.textContent !== e.target.textContent
-          ) {
-            r.style.backgroundColor = '#FFF';
-            r.style.color = '#004146';
-            r.style.opacity = '1';
-          } else if (
-            r.textContent === visit &&
-            r.textContent === e.target.textContent
-          ) {
-            e.target.style.background = '#F89572';
-            e.target.style.color = '#FFF';
-          }
-        } else if (!e) {
-          if (r.textContent === visit) {
-            r.style.backgroundColor = '#FFF';
-            r.style.color = '#004146';
-            r.style.opacity = '1';
-          }
-        }
-      });
-    });
-  };
-
   //
   useEffect(() => {
-    ref.current = new Array(filteredProviders.length);
-    styleVisitedButtons(ref.current, market);
-  }, [filteredProviders]);
-
-  //
-  useEffect(() => {
+    if (search.length === 1) setAllRefs(ref.current);
+    if (allRefs.length > 0 && search.length === 0) {
+      ref.current = allRefs; // used to be able to style all buttons
+    }
+    styleVisitedButtons(visitedProviders, ref.current, market);
     setAllProvidersShown(false);
-    setMakeResetButtonActive(false);
-    styleVisitedButtons(ref.current, market);
-  }, [search]);
+  }, [search, ref.current]);
 
   //
   const toggleProvider = e => {
     e.preventDefault();
     onClickProvider(e);
+
+    e.target.style.background = '#F89572';
+    e.target.style.color = '#FFF';
+    e.target.style.opacity = '1';
+
     if (
       !visitedProviders.markets[caseInsensitive(market)].includes(
         e.target.textContent
@@ -127,30 +107,24 @@ export const Sidebar = ({
         }
       });
     }
-
-    if (search.length < 1) setMakeResetButtonActive(true);
-
-    e.target.style.background = '#F89572';
-    e.target.style.color = '#FFF';
-    e.target.style.opacity = '1';
-
-    styleVisitedButtons(ref.current, market, e);
+    setMakeResetButtonActive(true);
+    styleVisitedButtons(visitedProviders, ref.current, market, e);
   };
 
   //
   const reset = e => {
     e.preventDefault();
 
-    if (search.length < 1) {
-      showAllProviders();
-      setAllProvidersShown(true);
-      setMakeResetButtonActive(false);
-      styleVisitedButtons(ref.current, market);
-    }
+    showAllProviders();
+    setAllProvidersShown(true);
+    setMakeResetButtonActive(false);
+    // styleVisitedButtons(visitedProviders, ref.current, market);
+    showAllProviders();
+    setSearch('');
 
-    ref.current.forEach(r => {
-      r.style.background = '#FFF';
-      r.style.color = '#004146';
+    ref.current.forEach(button => {
+      button.style.background = '#FFF';
+      button.style.color = '#004146';
     });
 
     if (scrollTop.current.scrollTop !== 0) scrollTop.current.scrollTop = 0;
@@ -186,11 +160,11 @@ export const Sidebar = ({
                     <ButtonItem
                       key={name}
                       onClick={e => toggleProvider(e)}
-                      ref={el => {
-                        ref.current[i] = el;
+                      ref={e => {
+                        ref.current[i] = e;
                       }}
                     >
-                      {name} filtered
+                      {name}
                     </ButtonItem>
                     <ProvidersStatus status={providerStatus(status)} />
                   </FlexContainer>
@@ -212,6 +186,7 @@ Sidebar.propTypes = {
   onChangeMarket: PropTypes.func.isRequired,
   onClickProvider: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
+  providers: PropTypes.array.isRequired,
   search: PropTypes.string.isRequired,
   setSearch: PropTypes.func.isRequired,
   searchNode: PropTypes.object,
