@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useRecognizeExplorer } from '../useRecognizeExplorer/useRecognizeExplorer';
+import { useBrowser } from '../useBrowser/useBrowser';
 import { getMarketCode } from '../../functions/getMarketCode/getMarketCode';
 
 export const useProviders = market => {
-  const isExplorer = useRecognizeExplorer();
+  const browser = useBrowser();
+  const isExplorer = browser.toLowerCase() === 'ie';
+
   const [providersData, setProvidersData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
