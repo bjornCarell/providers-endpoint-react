@@ -9,6 +9,7 @@ export const useProviders = market => {
 
   useEffect(() => {
     const code = getMarketCode(market);
+    const abortController = new AbortController();
     let ignore = false;
 
     const getData = async () => {
@@ -19,13 +20,14 @@ export const useProviders = market => {
         const data = await providers.providers;
         setProvidersData(data);
       } catch (err) {
-        setError(err);
+        if (!abortController.signal.aborted) setError(err);
       } finally {
-        setLoading(false);
+        if (!abortController.signal.aborted) setLoading(false);
       }
     };
     getData();
     return () => {
+      abortController.abort();
       // eslint-disable-next-line no-unused-vars
       ignore = true;
     };

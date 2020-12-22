@@ -31,11 +31,25 @@ export const Sidebar = ({
 }) => {
   const ref = useRef([]);
   const scrollTop = useRef('');
+  const [allRefs, setAllRefs] = useState([]);
   const [allProvidersShown, setAllProvidersShown] = useState(true);
   const [makeResetButtonActive, setMakeResetButtonActive] = useState(false);
   const [visitedProviders, setVisitedProviders] = useState({ markets: {} });
 
-  const [allRefs, setAllRefs] = useState([]);
+  // If there are visited providers for the market,
+  // those will be set and styled on re-render
+  useEffect(() => {
+    setVisitedProviders({
+      markets: markets.reduce(
+        (acc, country) => ({
+          ...acc,
+          [caseInsensitive(country.name)]:
+            markets[caseInsensitive(country.name)] || []
+        }),
+        {}
+      )
+    });
+  }, []);
 
   useEffect(() => {
     if (
@@ -56,19 +70,7 @@ export const Sidebar = ({
     ref.current = new Array(filteredProviders.length);
   }, [providers, filteredProviders, search]);
 
-  // Resetting visited providers on change of market,
-  // until I have figured out how to highligt visited on
-  // market change.
   useEffect(() => {
-    setVisitedProviders({
-      markets: markets.reduce(
-        (acc, mark) => ({
-          ...acc,
-          [caseInsensitive(mark.name)]: []
-        }),
-        {}
-      )
-    });
     showAllProviders();
     setSearch('');
     if (searchNode.current) searchNode.current.value = '';
@@ -98,6 +100,10 @@ export const Sidebar = ({
         e.target.textContent
       )
     ) {
+      // if the providers is not to be found in the visited providers
+      // for that market, it will be added to the the list
+      // the list is the value of visitedProviders.markets[market]
+      // e.g. visitedProviders.markets[sweden] : []
       setVisitedProviders({
         markets: {
           ...visitedProviders.markets,
