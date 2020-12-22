@@ -1,16 +1,24 @@
-/* eslint-disable no-console */
 import { useState, useEffect } from 'react';
+import { useRecognizeExplorer } from '../useRecognizeExplorer/useRecognizeExplorer';
 import { getMarketCode } from '../../functions/getMarketCode/getMarketCode';
 
 export const useProviders = market => {
+  const isExplorer = useRecognizeExplorer();
   const [providersData, setProvidersData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
 
   useEffect(() => {
     const code = getMarketCode(market);
-    const abortController = new AbortController();
-    let ignore = false;
+
+    let ignore;
+    let abortController;
+
+    if (isExplorer) {
+      ignore = false;
+    } else {
+      abortController = new AbortController();
+    }
 
     const getData = async () => {
       try {
@@ -20,16 +28,28 @@ export const useProviders = market => {
         const data = await providers.providers;
         setProvidersData(data);
       } catch (err) {
-        if (!abortController.signal.aborted) setError(err);
+        if (!isExplorer) {
+          if (!abortController.signal.aborted) setError(err);
+        } else if (isExplorer) {
+          setError(err);
+        }
       } finally {
-        if (!abortController.signal.aborted) setLoading(false);
+        if (!isExplorer) {
+          if (!abortController.signal.aborted) setLoading(false);
+        } else if (isExplorer) {
+          setLoading(false);
+        }
       }
     };
     getData();
+
     return () => {
-      abortController.abort();
-      // eslint-disable-next-line no-unused-vars
-      ignore = true;
+      if (!isExplorer) {
+        abortController.abort();
+      } else if (isExplorer) {
+        // eslint-disable-next-line no-unused-vars
+        ignore = true;
+      }
     };
   }, [market]);
 
