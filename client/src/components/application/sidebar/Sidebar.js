@@ -49,7 +49,7 @@ export const Sidebar = ({
         {}
       )
     });
-    styleVisitedButtons(visitedProviders, ref.current, market);
+    setAllRefs([]);
   }, []);
 
   useEffect(() => {
@@ -75,7 +75,6 @@ export const Sidebar = ({
     showAllProviders();
     setSearch('');
     if (searchNode.current) searchNode.current.value = '';
-    styleVisitedButtons(visitedProviders, ref.current, market);
   }, [market]);
 
   //
@@ -126,7 +125,6 @@ export const Sidebar = ({
     showAllProviders();
     setAllProvidersShown(true);
     setMakeResetButtonActive(false);
-    // styleVisitedButtons(visitedProviders, ref.current, market);
     showAllProviders();
     setSearch('');
 
