@@ -37,7 +37,7 @@ export const Sidebar = ({
   const [visitedProviders, setVisitedProviders] = useState({ markets: {} });
 
   // If there are visited providers for the market,
-  // those will be set and styled on re-render
+  // those will be set and styled accordingly
   useEffect(() => {
     setVisitedProviders({
       markets: markets.reduce(
@@ -52,14 +52,11 @@ export const Sidebar = ({
     setAllRefs([]);
   }, []);
 
+  // if search or filtering is made toggle reset button
+  // if filteredProviders is not of the same length as
+  // providers, it signifies a search or filter.
   useEffect(() => {
     if (
-      providers.length > 0 &&
-      filteredProviders.length > 0 &&
-      providers.length !== filteredProviders.length
-    ) {
-      setMakeResetButtonActive(true);
-    } else if (
       providers.length > 0 &&
       search.length > 0 &&
       providers.length !== filteredProviders.length
@@ -71,17 +68,19 @@ export const Sidebar = ({
     ref.current = new Array(filteredProviders.length);
   }, [providers, filteredProviders, search]);
 
+  // Reset providers and search string on change of market
   useEffect(() => {
     showAllProviders();
     setSearch('');
     if (searchNode.current) searchNode.current.value = '';
   }, [market]);
 
-  //
+  // save original refs to allRefs when user makes a search
+  // this to be able to style all visited buttons when resetting
   useEffect(() => {
     if (search.length === 1) setAllRefs(ref.current);
     if (allRefs.length > 0 && search.length === 0) {
-      ref.current = allRefs; // used to be able to style all buttons
+      ref.current = allRefs;
     }
     styleVisitedButtons(visitedProviders, ref.current, market);
     setAllProvidersShown(false);
@@ -92,6 +91,7 @@ export const Sidebar = ({
     e.preventDefault();
     onClickProvider(e);
 
+    // give style to active provider
     e.target.style.background = '#F89572';
     e.target.style.color = '#FFF';
     e.target.style.opacity = '1';
@@ -101,10 +101,7 @@ export const Sidebar = ({
         e.target.textContent
       )
     ) {
-      // if the providers is not to be found in the visited providers
-      // for that market, it will be added to the the list
-      // the list is the value of visitedProviders.markets[market]
-      // e.g. visitedProviders.markets[sweden] : []
+      // Add provider to visited providers list
       setVisitedProviders({
         markets: {
           ...visitedProviders.markets,
@@ -128,6 +125,8 @@ export const Sidebar = ({
     showAllProviders();
     setSearch('');
 
+    // reset style of all buttons, should be no
+    // button with secondary color
     ref.current.forEach(button => {
       button.style.background = '#FFF';
       button.style.color = '#004146';
@@ -141,6 +140,7 @@ export const Sidebar = ({
       <FlexContainer>
         <FlexItem noPadding>
           <SidebarForm
+            loading={loading}
             makeResetButtonActive={makeResetButtonActive}
             markets={markets}
             onChangeMarket={e => onChangeMarket(e)}

@@ -5,8 +5,10 @@ import { FlexContainer, FlexItem } from '../../library/flex/FlexStyled';
 import { Label } from '../../library/label/LabelStyled';
 import { Select } from '../../library/select/Select';
 import { SidebarFormStyled } from './SidebarFormStyled';
+// import { Loader } from '../../library/loader/Loader';
 
 export const SidebarForm = ({
+  loading,
   makeResetButtonActive,
   markets,
   onChangeMarket,
@@ -37,7 +39,11 @@ export const SidebarForm = ({
             opacity: makeResetButtonActive ? '1' : '0.8'
           }}
         >
-          {makeResetButtonActive ? 'Reset' : 'All'}
+          {loading
+            ? '...'
+            : !loading && makeResetButtonActive
+            ? 'Reset'
+            : 'All'}
         </Button>
       </FlexItem>
     </FlexContainer>
@@ -45,6 +51,7 @@ export const SidebarForm = ({
 );
 
 SidebarForm.propTypes = {
+  loading: PropTypes.bool.isRequired,
   makeResetButtonActive: PropTypes.bool.isRequired,
   markets: PropTypes.array.isRequired,
   onChangeMarket: PropTypes.func.isRequired,
