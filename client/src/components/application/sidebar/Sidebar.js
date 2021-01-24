@@ -78,7 +78,7 @@ export const Sidebar = ({
   // save original refs to allRefs when user makes a search
   // this to be able to style all visited buttons when resetting
   useEffect(() => {
-    if (search.length === 1) setAllRefs(ref.current);
+    if (search.length > 1) setAllRefs(ref.current);
     if (allRefs.length > 0 && search.length === 0) {
       ref.current = allRefs;
     }

@@ -8,8 +8,10 @@ export const styleVisitedButtons = (
   currentMarket,
   e = null
 ) => {
-  if (visitedProviders.markets[caseInsensitive(currentMarket)])
-    visitedProviders.markets[caseInsensitive(currentMarket)].forEach(visit => {
+  const market = caseInsensitive(currentMarket);
+
+  if (visitedProviders.markets[market]) {
+    visitedProviders.markets[market].forEach(visit => {
       currentRef.forEach(button => {
         if (
           e &&
@@ -45,4 +47,5 @@ export const styleVisitedButtons = (
         }
       });
     });
+  }
 };
