@@ -47,7 +47,7 @@ export const Sidebar = ({
     setSearch('');
 
     // reset style of all buttons, should be no
-    // button with secondary color
+    // button with secondary (orange) color
     ref.current.forEach(button => {
       button.style.background = '#FFF';
       button.style.color = '#004146';
@@ -60,14 +60,13 @@ export const Sidebar = ({
   // those will be set and styled accordingly
   useEffect(() => {
     setVisitedProviders({
-      markets: markets.reduce(
-        (acc, country) => ({
+      markets: markets.reduce((acc, country) => {
+        const name = caseInsensitive(country.name);
+        return {
           ...acc,
-          [caseInsensitive(country.name)]:
-            markets[caseInsensitive(country.name)] || []
-        }),
-        {}
-      )
+          [name]: markets[name] || []
+        };
+      }, {})
     });
     setAllRefs([]);
   }, []);
@@ -123,18 +122,19 @@ export const Sidebar = ({
     e.target.style.color = '#FFF';
     e.target.style.opacity = '1';
 
+    const currentMarket = caseInsensitive(market);
+
+    // Add provider to visited providers list
+    // if it's not already there
     if (
-      !visitedProviders.markets[caseInsensitive(market)].includes(
-        e.target.textContent
-      )
+      !visitedProviders.markets[currentMarket].includes(e.target.textContent)
     ) {
-      // Add provider to visited providers list
       setVisitedProviders({
         markets: {
           ...visitedProviders.markets,
-          [caseInsensitive(market)]: visitedProviders.markets[
-            caseInsensitive(market)
-          ].concat([e.target.textContent])
+          [currentMarket]: visitedProviders.markets[currentMarket].concat([
+            e.target.textContent
+          ])
         }
       });
     }
