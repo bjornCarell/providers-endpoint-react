@@ -57,7 +57,7 @@ export const ContainerJSON = ({
 
       setFilteredProviders(result);
       setProvidersJSON(formatJSON(result, space));
-    } else {
+    } else if (search.length === 0) {
       setFilteredProviders(providers);
       setProvidersJSON(formatJSON(providers, space));
     }

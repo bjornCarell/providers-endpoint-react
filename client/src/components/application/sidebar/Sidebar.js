@@ -36,6 +36,26 @@ export const Sidebar = ({
   const [makeResetButtonActive, setMakeResetButtonActive] = useState(false);
   const [visitedProviders, setVisitedProviders] = useState({ markets: {} });
 
+  //
+  const reset = e => {
+    if (e) e.preventDefault();
+
+    showAllProviders();
+    setAllProvidersShown(true);
+    setMakeResetButtonActive(false);
+    showAllProviders();
+    setSearch('');
+
+    // reset style of all buttons, should be no
+    // button with secondary color
+    ref.current.forEach(button => {
+      button.style.background = '#FFF';
+      button.style.color = '#004146';
+    });
+
+    if (scrollTop.current.scrollTop !== 0) scrollTop.current.scrollTop = 0;
+  };
+
   // If there are visited providers for the market,
   // those will be set and styled accordingly
   useEffect(() => {
@@ -62,6 +82,12 @@ export const Sidebar = ({
       providers.length !== filteredProviders.length
     ) {
       setMakeResetButtonActive(true);
+    } else if (
+      providers.length === filteredProviders.length &&
+      search.length === 0
+    ) {
+      setAllProvidersShown(true);
+      reset();
     } else {
       setMakeResetButtonActive(false);
     }
@@ -80,6 +106,7 @@ export const Sidebar = ({
   useEffect(() => {
     if (search.length > 1) setAllRefs(ref.current);
     if (allRefs.length > 0 && search.length === 0) {
+      setAllProvidersShown(true);
       ref.current = allRefs;
     }
     styleVisitedButtons(visitedProviders, ref.current, market);
@@ -113,26 +140,6 @@ export const Sidebar = ({
     }
     setMakeResetButtonActive(true);
     styleVisitedButtons(visitedProviders, ref.current, market, e);
-  };
-
-  //
-  const reset = e => {
-    e.preventDefault();
-
-    showAllProviders();
-    setAllProvidersShown(true);
-    setMakeResetButtonActive(false);
-    showAllProviders();
-    setSearch('');
-
-    // reset style of all buttons, should be no
-    // button with secondary color
-    ref.current.forEach(button => {
-      button.style.background = '#FFF';
-      button.style.color = '#004146';
-    });
-
-    if (scrollTop.current.scrollTop !== 0) scrollTop.current.scrollTop = 0;
   };
 
   return (
